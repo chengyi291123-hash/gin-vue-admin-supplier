@@ -1,0 +1,371 @@
+2025/11/23 03:55:26 maxprocs: Leaving GOMAXPROCS=14: CPU quota undefined
+您正在使用 gin 的 debug 模式运行, config 的路径为 config.debug.yaml
+配置文件路径不存在, 使用默认配置文件路径: config.yaml
+[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.353ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_suppliers"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.068ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_suppliers" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.034ms] [34;1m[rows:-][0m SELECT * FROM `sys_suppliers` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.009ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_suppliers" AND name = "idx_sys_suppliers_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_apis"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.034ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_apis" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.011ms] [34;1m[rows:-][0m SELECT * FROM `sys_apis` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.008ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_apis" AND name = "idx_sys_apis_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_ignore_apis"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.028ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_ignore_apis" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.011ms] [34;1m[rows:-][0m SELECT * FROM `sys_ignore_apis` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_ignore_apis" AND name = "idx_sys_ignore_apis_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_users"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.031ms] [34;1m[rows:4][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_users" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.013ms] [34;1m[rows:-][0m SELECT * FROM `sys_users` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_users" AND name = "idx_sys_users_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_users" AND name = "idx_sys_users_uuid"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_users" AND name = "idx_sys_users_username"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_authorities"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.027ms] [34;1m[rows:1][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_authorities" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.011ms] [34;1m[rows:-][0m SELECT * FROM `sys_authorities` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_user_authority"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.023ms] [34;1m[rows:1][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_user_authority" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT * FROM `sys_user_authority` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_base_menus"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.023ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_base_menus" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.022ms] [34;1m[rows:-][0m SELECT * FROM `sys_base_menus` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_base_menus" AND name = "idx_sys_base_menus_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_authority_menus"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.025ms] [34;1m[rows:1][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_authority_menus" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT * FROM `sys_authority_menus` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_data_authority_id"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.026ms] [34;1m[rows:1][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_data_authority_id" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT * FROM `sys_data_authority_id` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="jwt_blacklists"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.025ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "jwt_blacklists" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.009ms] [34;1m[rows:-][0m SELECT * FROM `jwt_blacklists` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "jwt_blacklists" AND name = "idx_jwt_blacklists_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_dictionaries"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.039ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_dictionaries" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.020ms] [34;1m[rows:-][0m SELECT * FROM `sys_dictionaries` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.016ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_dictionaries" AND name = "idx_sys_dictionaries_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.010ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_operation_records"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.039ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_operation_records" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.010ms] [34;1m[rows:-][0m SELECT * FROM `sys_operation_records` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.009ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_operation_records" AND name = "idx_sys_operation_records_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_auto_code_histories"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.024ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_auto_code_histories" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.017ms] [34;1m[rows:-][0m SELECT * FROM `sys_auto_code_histories` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_auto_code_histories" AND name = "idx_sys_auto_code_histories_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_dictionary_details"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.030ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_dictionary_details" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.010ms] [34;1m[rows:-][0m SELECT * FROM `sys_dictionary_details` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_dictionary_details" AND name = "idx_sys_dictionary_details_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_base_menu_parameters"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.026ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_base_menu_parameters" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.009ms] [34;1m[rows:-][0m SELECT * FROM `sys_base_menu_parameters` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_base_menu_parameters" AND name = "idx_sys_base_menu_parameters_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_base_menu_btns"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.028ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_base_menu_btns" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.010ms] [34;1m[rows:-][0m SELECT * FROM `sys_base_menu_btns` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_base_menu_btns" AND name = "idx_sys_base_menu_btns_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_authority_btns"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.024ms] [34;1m[rows:1][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_authority_btns" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT * FROM `sys_authority_btns` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_auto_code_packages"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.025ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_auto_code_packages" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.019ms] [34;1m[rows:-][0m SELECT * FROM `sys_auto_code_packages` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.015ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_auto_code_packages" AND name = "idx_sys_auto_code_packages_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.010ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_export_templates"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.039ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_export_templates" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.011ms] [34;1m[rows:-][0m SELECT * FROM `sys_export_templates` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.009ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_export_templates" AND name = "idx_sys_export_templates_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_export_template_condition"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.033ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_export_template_condition" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.009ms] [34;1m[rows:-][0m SELECT * FROM `sys_export_template_condition` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_export_template_condition" AND name = "idx_sys_export_template_condition_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_export_template_join"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.028ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_export_template_join" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.010ms] [34;1m[rows:-][0m SELECT * FROM `sys_export_template_join` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_export_template_join" AND name = "idx_sys_export_template_join_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_params"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.027ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_params" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT * FROM `sys_params` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_params" AND name = "idx_sys_params_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="sys_versions"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.022ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "sys_versions" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.008ms] [34;1m[rows:-][0m SELECT * FROM `sys_versions` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "sys_versions" AND name = "idx_sys_versions_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.004ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="exa_files"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.027ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "exa_files" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.008ms] [34;1m[rows:-][0m SELECT * FROM `exa_files` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "exa_files" AND name = "idx_exa_files_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.004ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="exa_customers"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.025ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "exa_customers" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.009ms] [34;1m[rows:-][0m SELECT * FROM `exa_customers` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "exa_customers" AND name = "idx_exa_customers_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="exa_file_chunks"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.026ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "exa_file_chunks" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.011ms] [34;1m[rows:-][0m SELECT * FROM `exa_file_chunks` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "exa_file_chunks" AND name = "idx_exa_file_chunks_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="exa_file_upload_and_downloads"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.029ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "exa_file_upload_and_downloads" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.007ms] [34;1m[rows:-][0m SELECT * FROM `exa_file_upload_and_downloads` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "exa_file_upload_and_downloads" AND name = "idx_exa_file_upload_and_downloads_deleted_at"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="exa_attachment_category"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.025ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "exa_attachment_category" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.009ms] [34;1m[rows:-][0m SELECT * FROM `exa_attachment_category` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "exa_attachment_category" AND name = "idx_exa_attachment_category_deleted_at"[github.com/flipped-aurora/gin-vue-admin/server]2025-11-23 03:55:26.774	[34minfo[0m	/Users/build/codebase/gin-vue-admin/server/initialize/gorm.go:84	register table success
+[32m/Users/build/codebase/gin-vue-admin/server/service/system/jwt_black_list.go:44
+[0m[33m[0.026ms] [34;1m[rows:0][0m SELECT `jwt` FROM `jwt_blacklists` WHERE `jwt_blacklists`.`deleted_at` IS NULL[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /sse                      --> github.com/flipped-aurora/gin-vue-admin/server/initialize.Routers.func1 (3 handlers)
+[GIN-debug] POST   /message                  --> github.com/flipped-aurora/gin-vue-admin/server/initialize.Routers.func2 (3 handlers)
+[GIN-debug] GET    /uploads/file/*filepath   --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /uploads/file/*filepath   --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-11-23 03:55:26.774	[34minfo[0m	/Users/build/codebase/gin-vue-admin/server/initialize/router.go:74	use middleware cors
+[GIN-debug] GET    /swagger/*any             --> github.com/swaggo/gin-swagger.CustomWrapHandler.func1 (4 handlers)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-11-23 03:55:26.774	[34minfo[0m	/Users/build/codebase/gin-vue-admin/server/initialize/router.go:77	register swagger handler
+[GIN-debug] GET    /health                   --> github.com/flipped-aurora/gin-vue-admin/server/initialize.Routers.func3 (4 handlers)
+[GIN-debug] POST   /base/login               --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).Login-fm (4 handlers)
+[GIN-debug] POST   /base/captcha             --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).Captcha-fm (4 handlers)
+[GIN-debug] POST   /init/initdb              --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DBApi).InitDB-fm (4 handlers)
+[GIN-debug] POST   /init/checkdb             --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DBApi).CheckDB-fm (4 handlers)
+[GIN-debug] POST   /suppliers                --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/supplier.(*SupplierApi).CreateSupplier-fm (5 handlers)
+[GIN-debug] PUT    /suppliers/:id            --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/supplier.(*SupplierApi).UpdateSupplier-fm (5 handlers)
+[GIN-debug] DELETE /suppliers                --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/supplier.(*SupplierApi).DeleteSupplier-fm (5 handlers)
+[GIN-debug] GET    /suppliers                --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/supplier.(*SupplierApi).GetSupplierList-fm (4 handlers)
+[GIN-debug] GET    /suppliers/:id            --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/supplier.(*SupplierApi).FindSupplier-fm (4 handlers)
+[GIN-debug] GET    /api/getApiGroups         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).GetApiGroups-fm (7 handlers)
+[GIN-debug] GET    /api/syncApi              --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).SyncApi-fm (7 handlers)
+[GIN-debug] POST   /api/ignoreApi            --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).IgnoreApi-fm (7 handlers)
+[GIN-debug] POST   /api/enterSyncApi         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).EnterSyncApi-fm (7 handlers)
+[GIN-debug] POST   /api/createApi            --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).CreateApi-fm (7 handlers)
+[GIN-debug] POST   /api/deleteApi            --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).DeleteApi-fm (7 handlers)
+[GIN-debug] POST   /api/getApiById           --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).GetApiById-fm (7 handlers)
+[GIN-debug] POST   /api/updateApi            --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).UpdateApi-fm (7 handlers)
+[GIN-debug] DELETE /api/deleteApisByIds      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).DeleteApisByIds-fm (7 handlers)
+[GIN-debug] POST   /api/getAllApis           --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).GetAllApis-fm (6 handlers)
+[GIN-debug] POST   /api/getApiList           --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).GetApiList-fm (6 handlers)
+[GIN-debug] GET    /api/freshCasbin          --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).FreshCasbin-fm (4 handlers)
+[GIN-debug] POST   /jwt/jsonInBlacklist      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*JwtApi).JsonInBlacklist-fm (6 handlers)
+[GIN-debug] POST   /user/admin_register      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).Register-fm (7 handlers)
+[GIN-debug] POST   /user/changePassword      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).ChangePassword-fm (7 handlers)
+[GIN-debug] POST   /user/setUserAuthority    --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).SetUserAuthority-fm (7 handlers)
+[GIN-debug] DELETE /user/deleteUser          --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).DeleteUser-fm (7 handlers)
+[GIN-debug] PUT    /user/setUserInfo         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).SetUserInfo-fm (7 handlers)
+[GIN-debug] PUT    /user/setSelfInfo         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).SetSelfInfo-fm (7 handlers)
+[GIN-debug] POST   /user/setUserAuthorities  --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).SetUserAuthorities-fm (7 handlers)
+[GIN-debug] POST   /user/resetPassword       --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).ResetPassword-fm (7 handlers)
+[GIN-debug] PUT    /user/setSelfSetting      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).SetSelfSetting-fm (7 handlers)
+[GIN-debug] POST   /user/getUserList         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).GetUserList-fm (6 handlers)
+[GIN-debug] GET    /user/getUserInfo         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).GetUserInfo-fm (6 handlers)
+[GIN-debug] POST   /menu/addBaseMenu         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).AddBaseMenu-fm (7 handlers)
+[GIN-debug] POST   /menu/addMenuAuthority    --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).AddMenuAuthority-fm (7 handlers)
+[GIN-debug] POST   /menu/deleteBaseMenu      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).DeleteBaseMenu-fm (7 handlers)
+[GIN-debug] POST   /menu/updateBaseMenu      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).UpdateBaseMenu-fm (7 handlers)
+[GIN-debug] POST   /menu/getMenu             --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).GetMenu-fm (6 handlers)
+[GIN-debug] POST   /menu/getMenuList         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).GetMenuList-fm (6 handlers)
+[GIN-debug] POST   /menu/getBaseMenuTree     --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).GetBaseMenuTree-fm (6 handlers)
+[GIN-debug] POST   /menu/getMenuAuthority    --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).GetMenuAuthority-fm (6 handlers)
+[GIN-debug] POST   /menu/getBaseMenuById     --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).GetBaseMenuById-fm (6 handlers)
+[GIN-debug] POST   /system/setSystemConfig   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApi).SetSystemConfig-fm (7 handlers)
+[GIN-debug] POST   /system/reloadSystem      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApi).ReloadSystem-fm (7 handlers)
+[GIN-debug] POST   /system/getSystemConfig   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApi).GetSystemConfig-fm (6 handlers)
+[GIN-debug] POST   /system/getServerInfo     --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApi).GetServerInfo-fm (6 handlers)
+[GIN-debug] DELETE /sysVersion/deleteSysVersion --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysVersionApi).DeleteSysVersion-fm (7 handlers)
+[GIN-debug] DELETE /sysVersion/deleteSysVersionByIds --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysVersionApi).DeleteSysVersionByIds-fm (7 handlers)
+[GIN-debug] POST   /sysVersion/exportVersion --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysVersionApi).ExportVersion-fm (7 handlers)
+[GIN-debug] POST   /sysVersion/importVersion --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysVersionApi).ImportVersion-fm (7 handlers)
+[GIN-debug] GET    /sysVersion/findSysVersion --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysVersionApi).FindSysVersion-fm (6 handlers)
+[GIN-debug] GET    /sysVersion/getSysVersionList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysVersionApi).GetSysVersionList-fm (6 handlers)
+[GIN-debug] GET    /sysVersion/downloadVersionJson --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysVersionApi).DownloadVersionJson-fm (6 handlers)
+[GIN-debug] POST   /casbin/updateCasbin      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*CasbinApi).UpdateCasbin-fm (7 handlers)
+[GIN-debug] POST   /casbin/getPolicyPathByAuthorityId --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*CasbinApi).GetPolicyPathByAuthorityId-fm (6 handlers)
+[GIN-debug] GET    /autoCode/getDB           --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).GetDB-fm (6 handlers)
+[GIN-debug] GET    /autoCode/getTables       --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).GetTables-fm (6 handlers)
+[GIN-debug] GET    /autoCode/getColumn       --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).GetColumn-fm (6 handlers)
+[GIN-debug] POST   /autoCode/preview         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeTemplateApi).Preview-fm (6 handlers)
+[GIN-debug] POST   /autoCode/createTemp      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeTemplateApi).Create-fm (6 handlers)
+[GIN-debug] POST   /autoCode/addFunc         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeTemplateApi).AddFunc-fm (6 handlers)
+[GIN-debug] POST   /autoCode/mcp             --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeTemplateApi).MCP-fm (6 handlers)
+[GIN-debug] POST   /autoCode/mcpList         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeTemplateApi).MCPList-fm (6 handlers)
+[GIN-debug] POST   /autoCode/mcpTest         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeTemplateApi).MCPTest-fm (6 handlers)
+[GIN-debug] POST   /autoCode/getPackage      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodePackageApi).All-fm (6 handlers)
+[GIN-debug] POST   /autoCode/delPackage      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodePackageApi).Delete-fm (6 handlers)
+[GIN-debug] POST   /autoCode/createPackage   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodePackageApi).Create-fm (6 handlers)
+[GIN-debug] GET    /autoCode/getTemplates    --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodePackageApi).Templates-fm (6 handlers)
+[GIN-debug] POST   /autoCode/pubPlug         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodePluginApi).Packaged-fm (6 handlers)
+[GIN-debug] POST   /autoCode/installPlugin   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodePluginApi).Install-fm (6 handlers)
+[GIN-debug] POST   /autoCode/llmAuto         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).LLMAuto-fm (4 handlers)
+[GIN-debug] POST   /autoCode/initMenu        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodePluginApi).InitMenu-fm (4 handlers)
+[GIN-debug] POST   /autoCode/initAPI         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodePluginApi).InitAPI-fm (4 handlers)
+[GIN-debug] POST   /authority/createAuthority --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).CreateAuthority-fm (7 handlers)
+[GIN-debug] POST   /authority/deleteAuthority --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).DeleteAuthority-fm (7 handlers)
+[GIN-debug] PUT    /authority/updateAuthority --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).UpdateAuthority-fm (7 handlers)
+[GIN-debug] POST   /authority/copyAuthority  --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).CopyAuthority-fm (7 handlers)
+[GIN-debug] POST   /authority/setDataAuthority --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).SetDataAuthority-fm (7 handlers)
+[GIN-debug] POST   /authority/getAuthorityList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).GetAuthorityList-fm (6 handlers)
+[GIN-debug] POST   /sysDictionary/createSysDictionary --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryApi).CreateSysDictionary-fm (7 handlers)
+[GIN-debug] DELETE /sysDictionary/deleteSysDictionary --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryApi).DeleteSysDictionary-fm (7 handlers)
+[GIN-debug] PUT    /sysDictionary/updateSysDictionary --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryApi).UpdateSysDictionary-fm (7 handlers)
+[GIN-debug] GET    /sysDictionary/findSysDictionary --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryApi).FindSysDictionary-fm (6 handlers)
+[GIN-debug] GET    /sysDictionary/getSysDictionaryList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryApi).GetSysDictionaryList-fm (6 handlers)
+[GIN-debug] POST   /autoCode/getMeta         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeHistoryApi).First-fm (6 handlers)
+[GIN-debug] POST   /autoCode/rollback        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeHistoryApi).RollBack-fm (6 handlers)
+[GIN-debug] POST   /autoCode/delSysHistory   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeHistoryApi).Delete-fm (6 handlers)
+[GIN-debug] POST   /autoCode/getSysHistory   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeHistoryApi).GetList-fm (6 handlers)
+[GIN-debug] DELETE /sysOperationRecord/deleteSysOperationRecord --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*OperationRecordApi).DeleteSysOperationRecord-fm (6 handlers)
+[GIN-debug] DELETE /sysOperationRecord/deleteSysOperationRecordByIds --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*OperationRecordApi).DeleteSysOperationRecordByIds-fm (6 handlers)
+[GIN-debug] GET    /sysOperationRecord/findSysOperationRecord --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*OperationRecordApi).FindSysOperationRecord-fm (6 handlers)
+[GIN-debug] GET    /sysOperationRecord/getSysOperationRecordList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*OperationRecordApi).GetSysOperationRecordList-fm (6 handlers)
+[GIN-debug] POST   /sysDictionaryDetail/createSysDictionaryDetail --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).CreateSysDictionaryDetail-fm (7 handlers)
+[GIN-debug] DELETE /sysDictionaryDetail/deleteSysDictionaryDetail --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).DeleteSysDictionaryDetail-fm (7 handlers)
+[GIN-debug] PUT    /sysDictionaryDetail/updateSysDictionaryDetail --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).UpdateSysDictionaryDetail-fm (7 handlers)
+[GIN-debug] GET    /sysDictionaryDetail/findSysDictionaryDetail --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).FindSysDictionaryDetail-fm (6 handlers)
+[GIN-debug] GET    /sysDictionaryDetail/getSysDictionaryDetailList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).GetSysDictionaryDetailList-fm (6 handlers)
+[GIN-debug] GET    /sysDictionaryDetail/getDictionaryTreeList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).GetDictionaryTreeList-fm (6 handlers)
+[GIN-debug] GET    /sysDictionaryDetail/getDictionaryTreeListByType --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).GetDictionaryTreeListByType-fm (6 handlers)
+[GIN-debug] GET    /sysDictionaryDetail/getDictionaryDetailsByParent --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).GetDictionaryDetailsByParent-fm (6 handlers)
+[GIN-debug] GET    /sysDictionaryDetail/getDictionaryPath --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).GetDictionaryPath-fm (6 handlers)
+[GIN-debug] POST   /authorityBtn/getAuthorityBtn --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityBtnApi).GetAuthorityBtn-fm (6 handlers)
+[GIN-debug] POST   /authorityBtn/setAuthorityBtn --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityBtnApi).SetAuthorityBtn-fm (6 handlers)
+[GIN-debug] POST   /authorityBtn/canRemoveAuthorityBtn --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityBtnApi).CanRemoveAuthorityBtn-fm (6 handlers)
+[GIN-debug] POST   /sysExportTemplate/createSysExportTemplate --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).CreateSysExportTemplate-fm (7 handlers)
+[GIN-debug] DELETE /sysExportTemplate/deleteSysExportTemplate --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).DeleteSysExportTemplate-fm (7 handlers)
+[GIN-debug] DELETE /sysExportTemplate/deleteSysExportTemplateByIds --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).DeleteSysExportTemplateByIds-fm (7 handlers)
+[GIN-debug] PUT    /sysExportTemplate/updateSysExportTemplate --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).UpdateSysExportTemplate-fm (7 handlers)
+[GIN-debug] POST   /sysExportTemplate/importExcel --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).ImportExcel-fm (7 handlers)
+[GIN-debug] GET    /sysExportTemplate/findSysExportTemplate --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).FindSysExportTemplate-fm (6 handlers)
+[GIN-debug] GET    /sysExportTemplate/getSysExportTemplateList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).GetSysExportTemplateList-fm (6 handlers)
+[GIN-debug] GET    /sysExportTemplate/exportExcel --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).ExportExcel-fm (6 handlers)
+[GIN-debug] GET    /sysExportTemplate/exportTemplate --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).ExportTemplate-fm (6 handlers)
+[GIN-debug] GET    /sysExportTemplate/exportExcelByToken --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).ExportExcelByToken-fm (4 handlers)
+[GIN-debug] GET    /sysExportTemplate/exportTemplateByToken --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).ExportTemplateByToken-fm (4 handlers)
+[GIN-debug] POST   /sysParams/createSysParams --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysParamsApi).CreateSysParams-fm (7 handlers)
+[GIN-debug] DELETE /sysParams/deleteSysParams --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysParamsApi).DeleteSysParams-fm (7 handlers)
+[GIN-debug] DELETE /sysParams/deleteSysParamsByIds --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysParamsApi).DeleteSysParamsByIds-fm (7 handlers)
+[GIN-debug] PUT    /sysParams/updateSysParams --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysParamsApi).UpdateSysParams-fm (7 handlers)
+[GIN-debug] GET    /sysParams/findSysParams  --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysParamsApi).FindSysParams-fm (6 handlers)
+[GIN-debug] GET    /sysParams/getSysParamsList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysParamsApi).GetSysParamsList-fm (6 handlers)
+[GIN-debug] GET    /sysParams/getSysParam    --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysParamsApi).GetSysParam-fm (6 handlers)
+[GIN-debug] POST   /customer/customer        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*CustomerApi).CreateExaCustomer-fm (7 handlers)
+[GIN-debug] PUT    /customer/customer        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*CustomerApi).UpdateExaCustomer-fm (7 handlers)
+[GIN-debug] DELETE /customer/customer        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*CustomerApi).DeleteExaCustomer-fm (7 handlers)
+[GIN-debug] GET    /customer/customer        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*CustomerApi).GetExaCustomer-fm (6 handlers)
+[GIN-debug] GET    /customer/customerList    --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*CustomerApi).GetExaCustomerList-fm (6 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/upload --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).UploadFile-fm (6 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/getFileList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).GetFileList-fm (6 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/deleteFile --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).DeleteFile-fm (6 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/editFileName --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).EditFileName-fm (6 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/breakpointContinue --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).BreakpointContinue-fm (6 handlers)
+[GIN-debug] GET    /fileUploadAndDownload/findFile --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).FindFile-fm (6 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/breakpointContinueFinish --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).BreakpointContinueFinish-fm (6 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/removeChunk --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).RemoveChunk-fm (6 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/importURL --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).ImportURL-fm (6 handlers)
+[GIN-debug] GET    /attachmentCategory/getCategoryList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*AttachmentCategoryApi).GetCategoryList-fm (6 handlers)
+[GIN-debug] POST   /attachmentCategory/addCategory --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*AttachmentCategoryApi).AddCategory-fm (6 handlers)
+[GIN-debug] POST   /attachmentCategory/deleteCategory --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*AttachmentCategoryApi).DeleteCategory-fm (6 handlers)
+email 注册开始!
+[GIN-debug] POST   /email/emailTest          --> github.com/flipped-aurora/gin-vue-admin/server/plugin/email/api.(*EmailApi).EmailTest-fm (7 handlers)
+[GIN-debug] POST   /email/sendEmail          --> github.com/flipped-aurora/gin-vue-admin/server/plugin/email/api.(*EmailApi).SendEmail-fm (7 handlers)
+email 注册成功!
+[32m/Users/build/codebase/gin-vue-admin/server/plugin/plugin-tool/utils/check.go:16
+[0m[33m[0.569ms] [34;1m[rows:6][0m SELECT * FROM `sys_apis` WHERE path in ("/info/createInfo","/info/deleteInfo","/info/deleteInfoByIds","/info/updateInfo","/info/findInfo","/info/getInfoList") AND `sys_apis`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/plugin/plugin-tool/utils/check.go:16
+[0m[33m[0.031ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_apis` WHERE path in ("/info/createInfo","/info/deleteInfo","/info/deleteInfoByIds","/info/updateInfo","/info/findInfo","/info/getInfoList") AND `sys_apis`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/plugin/plugin-tool/utils/check.go:34
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT * FROM `sys_base_menus` WHERE name in ("anInfo") AND `sys_base_menus`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/plugin/plugin-tool/utils/check.go:34
+[0m[33m[0.018ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_base_menus` WHERE name in ("anInfo") AND `sys_base_menus`.`deleted_at` IS NULL[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:32
+[0m[33m[0.006ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="gva_announcements_info"[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:117
+[0m[33m[0.028ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "gva_announcements_info" AND sql IS NOT NULL order by type = "table" desc[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:125
+[0m[33m[0.008ms] [34;1m[rows:-][0m SELECT * FROM `gva_announcements_info` LIMIT 1[32m/Users/build/go/pkg/mod/github.com/glebarez/sqlite@v1.11.0/migrator.go:293
+[0m[33m[0.005ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "gva_announcements_info" AND name = "idx_gva_announcements_info_deleted_at"[GIN-debug] POST   /info/createInfo          --> github.com/flipped-aurora/gin-vue-admin/server/plugin/announcement/api.(*info).CreateInfo-fm (7 handlers)
+[GIN-debug] DELETE /info/deleteInfo          --> github.com/flipped-aurora/gin-vue-admin/server/plugin/announcement/api.(*info).DeleteInfo-fm (7 handlers)
+[GIN-debug] DELETE /info/deleteInfoByIds     --> github.com/flipped-aurora/gin-vue-admin/server/plugin/announcement/api.(*info).DeleteInfoByIds-fm (7 handlers)
+[GIN-debug] PUT    /info/updateInfo          --> github.com/flipped-aurora/gin-vue-admin/server/plugin/announcement/api.(*info).UpdateInfo-fm (7 handlers)
+[GIN-debug] GET    /info/findInfo            --> github.com/flipped-aurora/gin-vue-admin/server/plugin/announcement/api.(*info).FindInfo-fm (6 handlers)
+[GIN-debug] GET    /info/getInfoList         --> github.com/flipped-aurora/gin-vue-admin/server/plugin/announcement/api.(*info).GetInfoList-fm (6 handlers)
+[GIN-debug] GET    /info/getInfoDataSource   --> github.com/flipped-aurora/gin-vue-admin/server/plugin/announcement/api.(*info).GetInfoDataSource-fm (4 handlers)
+[GIN-debug] GET    /info/getInfoPublic       --> github.com/flipped-aurora/gin-vue-admin/server/plugin/announcement/api.(*info).GetInfoPublic-fm (4 handlers)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-11-23 03:55:26.776	[34minfo[0m	/Users/build/codebase/gin-vue-admin/server/initialize/router.go:128	router register success
+
+	欢迎使用 gin-vue-admin
+	当前版本:v2.8.6
+	加群方式:微信号：shouzi_1994 QQ群：470239250
+	项目地址：https://github.com/flipped-aurora/gin-vue-admin
+	插件市场:https://plugin.gin-vue-admin.com
+	GVA讨论社区:https://support.qq.com/products/371961
+	默认自动化文档地址:http://127.0.0.1:8888/swagger/index.html
+	默认MCP SSE地址:http://127.0.0.1:8888/sse
+	默认MCP Message地址:http://127.0.0.1:8888/message
+	默认前端文件运行地址:http://127.0.0.1:8080
+	--------------------------------------版权声明--------------------------------------
+	** 版权所有方：flipped-aurora开源团队 **
+	** 版权持有公司：北京翻转极光科技有限责任公司 **
+	** 剔除授权标识需购买商用授权：https://gin-vue-admin.com/empower/index.html **
+	** 感谢您对Gin-Vue-Admin的支持与关注 合法授权使用更有利于项目的长久发展**
+[GIN] 2025/11/23 - 03:56:40 | 204 |       4.833µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.364ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.110ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:56:40 | 200 |     886.583µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.170ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.098ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:56:40 | 200 |     411.542µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.181ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.107ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:56:43 | 200 |     454.041µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100"
+[GIN] 2025/11/23 - 03:56:46 | 204 |       5.375µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.172ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.120ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:56:46 | 200 |     439.708µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100"
+[GIN] 2025/11/23 - 03:56:47 | 204 |       5.625µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100&status=temp"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.176ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE status = "temp" AND `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.117ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE status = "temp" AND `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:56:47 | 200 |     410.167µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100&status=temp"
+[GIN] 2025/11/23 - 03:56:48 | 204 |       5.208µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100&status=qualified"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.185ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE status = "qualified" AND `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.118ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE status = "qualified" AND `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:56:48 | 200 |         426µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100&status=qualified"
+[GIN] 2025/11/23 - 03:56:49 | 204 |       5.959µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100&status=blacklist"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.180ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE status = "blacklist" AND `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.110ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE status = "blacklist" AND `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:56:49 | 200 |     428.125µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100&status=blacklist"
+[GIN] 2025/11/23 - 03:56:59 | 204 |       5.417µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100&status=qualified"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.180ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE status = "qualified" AND `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.120ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE status = "qualified" AND `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:56:59 | 200 |     429.125µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100&status=qualified"
+[GIN] 2025/11/23 - 03:57:00 | 204 |       5.708µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100&status=temp"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.180ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE status = "temp" AND `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.118ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE status = "temp" AND `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:57:00 | 200 |     415.458µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100&status=temp"
+[GIN] 2025/11/23 - 03:57:02 | 204 |       5.083µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.191ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.109ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:57:02 | 200 |     422.584µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.174ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.135ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:57:04 | 200 |     460.333µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100"
+[GIN] 2025/11/23 - 03:58:42 | 204 |           6µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.201ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.128ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:58:42 | 200 |     459.917µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100"
+[GIN] 2025/11/23 - 03:58:42 | 204 |       6.333µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100&status=temp"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.185ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE status = "temp" AND `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.128ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE status = "temp" AND `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:58:42 | 200 |     449.959µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100&status=temp"
+[GIN] 2025/11/23 - 03:58:43 | 204 |        4.75µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100&status=qualified"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.185ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE status = "qualified" AND `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.134ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE status = "qualified" AND `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:58:43 | 200 |     450.125µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100&status=qualified"
+[GIN] 2025/11/23 - 03:58:44 | 204 |       5.375µs |       127.0.0.1 | OPTIONS  "/suppliers?page=1&pageSize=100&status=blacklist"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.183ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE status = "blacklist" AND `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.118ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE status = "blacklist" AND `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:58:44 | 200 |      444.75µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100&status=blacklist"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.195ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE status = "qualified" AND `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.104ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE status = "qualified" AND `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:58:45 | 200 |     433.166µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100&status=qualified"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.184ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE status = "temp" AND `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.134ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE status = "temp" AND `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:58:45 | 200 |     482.167µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100&status=temp"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.165ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.135ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:58:46 | 200 |      444.75µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100"
+[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:44
+[0m[33m[0.170ms] [34;1m[rows:1][0m SELECT count(*) FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL[32m/Users/build/codebase/gin-vue-admin/server/service/supplier/supplier.go:48
+[0m[33m[0.107ms] [34;1m[rows:0][0m SELECT * FROM `sys_suppliers` WHERE `sys_suppliers`.`deleted_at` IS NULL LIMIT 100[GIN] 2025/11/23 - 03:58:47 | 200 |     411.791µs |       127.0.0.1 | GET      "/suppliers?page=1&pageSize=100"

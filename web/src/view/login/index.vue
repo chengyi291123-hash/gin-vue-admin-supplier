@@ -88,6 +88,15 @@
                   >前往初始化</el-button
                 >
               </el-form-item>
+              <el-form-item class="mb-6">
+                <el-button
+                  class="shadow shadow-active h-11 w-full"
+                  type="success"
+                  size="large"
+                  @click="router.push({ name: 'SupplierDemo' })"
+                  >查看演示 (无需登录)</el-button
+                >
+              </el-form-item>
             </el-form>
           </div>
         </div>

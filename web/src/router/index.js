@@ -25,6 +25,15 @@ const routes = [
     component: () => import('@/view/example/upload/scanUpload.vue')
   },
   {
+    path: '/supplier-demo',
+    name: 'SupplierDemo',
+    meta: {
+      title: '供应商管理演示',
+      client: true
+    },
+    component: () => import('@/view/supplier/index.vue')
+  },
+  {
     path: '/:catchAll(.*)',
     meta: {
       closeTab: true

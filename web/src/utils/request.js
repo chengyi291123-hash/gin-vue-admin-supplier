@@ -184,6 +184,14 @@ service.interceptors.response.use(
       return Promise.reject(error)
     }
 
+    if (error.response.status === 404) {
+       emitter.emit('show-error', {
+        code: '404',
+        message: '资源未找到',
+      })
+      return Promise.reject(error)
+    }
+
     emitter.emit('show-error', {
       code: error.response.status,
       message: getErrorMessage(error)
