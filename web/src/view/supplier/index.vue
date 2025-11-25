@@ -20,9 +20,8 @@
           </template>
           <el-menu-item index="apply">供应商申请</el-menu-item>
           <el-menu-item index="change">供应商变更</el-menu-item>
-          <el-menu-item index="temp">临时供应商</el-menu-item>
+          <el-menu-item index="temp">潜在供应商</el-menu-item>
           <el-menu-item index="qualified">合格供应商</el-menu-item>
-          <el-menu-item index="blacklist">供应商黑名单</el-menu-item>
         </el-sub-menu>
       </el-menu>
     </div>
@@ -46,7 +45,7 @@
 
           <!-- VIEW 1: 供应商申请 -->
           <div v-if="currentMenu === 'apply'">
-            <el-alert title="提示：临时供方只需填写红色必填项，直接提交；申请合格供方需填写全部信息并审批。" type="info" show-icon style="margin-bottom: 20px;"></el-alert>
+            <el-alert title="提示：潜在供方只需填写红色必填项，直接提交；申请合格供方需填写全部信息并审批。" type="info" show-icon style="margin-bottom: 20px;"></el-alert>
 
             <el-tabs v-model="activeTab">
               <el-tab-pane label="基本信息" name="basic">
@@ -156,34 +155,43 @@
 
                 <el-form label-width="150px">
                   <el-form-item label="供应商类型">
-                    <el-select v-model="form.entry_type" placeholder="请选择供应商类型" style="width: 100%">
-                      <el-option label="生产商" value="manufacturing"></el-option>
-                      <el-option label="贸易商" value="trading"></el-option>
-                    </el-select>
+                    <el-radio-group v-model="form.entry_type">
+                      <el-radio-button label="manufacturing">生产商</el-radio-button>
+                      <el-radio-button label="trading">贸易商</el-radio-button>
+                    </el-radio-group>
                   </el-form-item>
-                  <el-form-item label="选择证书类型">
-                    <el-select v-model="currentCertType" placeholder="请选择要上传的证书类型" style="width: 100%;">
-                      <el-option v-for="cert in certificateOptions" :key="cert" :label="cert" :value="cert"></el-option>
-                    </el-select>
-                  </el-form-item>
-
-                  <el-form-item label="文件上传">
-                    <el-upload class="upload-demo" drag action="#" :auto-upload="false" :on-change="handleFileChange">
-                      <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-                      <div class="el-upload__text">将文件拖到此处，或 <em>点击上传</em></div>
-                    </el-upload>
-                  </el-form-item>
-
-                  <!-- Uploaded List -->
-                  <div style="margin-left: 150px; margin-bottom: 20px;">
-                    <div v-for="(file, index) in uploadedFiles" :key="index" style="display: flex; align-items: center; margin-bottom: 5px; background: #f5f7fa; padding: 5px 10px; border-radius: 4px;">
-                      <el-icon style="margin-right: 5px;"><document /></el-icon>
-                      <span style="flex: 1;">{{ file.type }} - {{ file.name }}</span>
-                      <el-icon style="cursor: pointer; color: #f56c6c;" @click="removeFile(index)"><delete /></el-icon>
-                    </div>
+                  
+                  <div style="margin-left: 50px; margin-right: 50px;">
+                    <el-table :data="certificateOptions.map(c => ({ name: c }))" border style="width: 100%">
+                        <el-table-column prop="name" label="证书名称"></el-table-column>
+                        <el-table-column label="已上传份数" width="120" align="center">
+                            <template #default="scope">
+                                {{ getFileCount(scope.row.name) }} 份
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="操作" width="300">
+                            <template #default="scope">
+                                <div v-if="getFileForCert(scope.row.name)" style="display: flex; align-items: center;">
+                                    <el-icon style="margin-right: 5px;"><document /></el-icon>
+                                    <span style="margin-right: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 150px;">{{ getFileForCert(scope.row.name).name }}</span>
+                                    <el-button type="danger" size="small" link icon="Delete" @click="removeFile(scope.row.name)"></el-button>
+                                </div>
+                                <el-upload
+                                    v-else
+                                    class="upload-demo"
+                                    action="#"
+                                    :auto-upload="false"
+                                    :show-file-list="false"
+                                    :on-change="(file) => handleFileChange(file, scope.row.name)"
+                                >
+                                    <el-button type="primary" size="small" icon="Upload">点击上传</el-button>
+                                </el-upload>
+                            </template>
+                        </el-table-column>
+                    </el-table>
                   </div>
 
-                  <el-form-item>
+                  <el-form-item style="margin-top: 20px;">
                     <el-button @click="activeTab = 'basic'">上一步</el-button>
                     <el-button type="success" @click="saveData">提交申请</el-button>
                   </el-form-item>
@@ -192,10 +200,10 @@
             </el-tabs>
           </div>
 
-          <!-- VIEW 2: 供应商变更 (NEW) -->
+          <!-- VIEW 2: 供应商变更 (NEW - Inline Edit) -->
           <div v-else-if="currentMenu === 'change'">
             <div class="form-section-title">供应商信息变更</div>
-            <el-alert title="采购员筛选供应商进行变更，变更需采购部长审批。临时供方可直接修改。" type="warning" style="margin-bottom: 20px;" :closable="false"></el-alert>
+            <el-alert title="提示：直接在表格中修改信息，点击右侧“保存”按钮提交变更。" type="warning" style="margin-bottom: 20px;" :closable="false"></el-alert>
 
             <div style="margin-bottom: 20px;">
               <el-form :inline="true" :model="searchForm" class="demo-form-inline">
@@ -205,7 +213,7 @@
                 <el-form-item label="状态">
                   <el-select v-model="searchForm.status" placeholder="全部" style="width: 150px;">
                     <el-option label="合格" value="qualified"></el-option>
-                    <el-option label="临时" value="temp"></el-option>
+                    <el-option label="潜在" value="temp"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item>
@@ -214,52 +222,124 @@
               </el-form>
             </div>
 
-            <el-table :data="tableData" border style="width: 100%">
-              <el-table-column prop="id" label="ID" width="60"></el-table-column>
-              <el-table-column prop="name" label="企业名称" min-width="200"></el-table-column>
-              <el-table-column prop="category" label="品类" width="120"></el-table-column>
-              <el-table-column prop="status" label="当前状态" width="100">
+            <el-table :data="tableData" border style="width: 100%" height="500">
+              <el-table-column prop="id" label="序号" width="60" fixed></el-table-column>
+              
+              <el-table-column label="企业名称" min-width="180">
                 <template #default="scope">
-                  <el-tag :type="getStatusType(scope.row.status)">{{ scope.row.status }}</el-tag>
+                    <el-input v-model="scope.row.enterprise_name" size="small"></el-input>
                 </template>
               </el-table-column>
-              <el-table-column label="操作" width="150">
+              
+              <el-table-column label="统一社会信用代码" min-width="180">
                 <template #default="scope">
-                  <el-button type="primary" size="small" plain icon="Edit" @click="openChangeDialog(scope.row)">变更信息</el-button>
+                    <el-input v-model="scope.row.credit_code" size="small"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="供应商类型" min-width="120">
+                <template #default="scope">
+                    <el-select v-model="scope.row.entry_type" size="small">
+                        <el-option label="生产商" value="manufacturing"></el-option>
+                        <el-option label="贸易商" value="trading"></el-option>
+                    </el-select>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="供应品类" min-width="120">
+                <template #default="scope">
+                    <el-select v-model="scope.row.category" size="small">
+                        <el-option label="原材料" value="raw"></el-option>
+                        <el-option label="电子元器件" value="electronic"></el-option>
+                        <el-option label="办公用品" value="office"></el-option>
+                    </el-select>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="合作区域" min-width="120">
+                <template #default="scope">
+                    <el-input v-model="scope.row.region" size="small"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="合作行业" min-width="120">
+                <template #default="scope">
+                    <el-select v-model="scope.row.industry" size="small">
+                        <el-option label="核电" value="nuclear"></el-option>
+                        <el-option label="石化" value="petrochemical"></el-option>
+                        <el-option label="军工" value="military"></el-option>
+                        <el-option label="其他" value="other"></el-option>
+                    </el-select>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="合作品牌" min-width="120">
+                <template #default="scope">
+                    <el-input v-model="scope.row.brand" size="small"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="联系人" min-width="100">
+                <template #default="scope">
+                    <el-input v-model="scope.row.contact_person" size="small"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="联系电话" min-width="130">
+                <template #default="scope">
+                    <el-input v-model="scope.row.mobile" size="small"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="开户行" min-width="150">
+                <template #default="scope">
+                    <el-input v-model="scope.row.bank_name" size="small"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="开户行名称" min-width="180">
+                <template #default="scope">
+                    <el-input v-model="scope.row.branch_name" size="small"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="结算方式" min-width="120">
+                <template #default="scope">
+                    <el-select v-model="scope.row.settlement" size="small">
+                        <el-option label="月结30天" value="m30"></el-option>
+                        <el-option label="预付" value="prepay"></el-option>
+                        <el-option label="货到付款" value="cod"></el-option>
+                    </el-select>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="采购员" min-width="100">
+                <template #default="scope">
+                    <el-input v-model="scope.row.purchaser" size="small"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="潜在或合格" min-width="120">
+                <template #default="scope">
+                    <el-select v-model="scope.row.status_base" size="small">
+                        <el-option label="潜在" value="temp"></el-option>
+                        <el-option label="合格" value="qualified"></el-option>
+                    </el-select>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="是否黑名单" min-width="120">
+                <template #default="scope">
+                    <el-input v-model="scope.row.is_blacklist_str" size="small" placeholder="输入是/否"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="操作" width="80" fixed="right">
+                <template #default="scope">
+                  <el-button type="primary" size="small" @click="submitRowChange(scope.row)">保存</el-button>
                 </template>
               </el-table-column>
             </el-table>
-
-            <!-- 变更弹窗 -->
-            <el-dialog v-model="changeDialogVisible" title="变更供应商信息" width="600px">
-              <el-form :model="changeForm" label-width="120px">
-                <el-form-item label="企业名称">
-                  <el-input v-model="changeForm.name" disabled></el-input>
-                </el-form-item>
-                <el-form-item label="联系人">
-                  <el-input v-model="changeForm.contact"></el-input>
-                </el-form-item>
-                <el-form-item label="联系电话">
-                  <el-input v-model="changeForm.mobile"></el-input>
-                </el-form-item>
-                <el-form-item label="开户行">
-                  <el-input v-model="changeForm.bank"></el-input>
-                </el-form-item>
-                <el-form-item label="变更原因">
-                  <el-input type="textarea" v-model="changeForm.reason"></el-input>
-                </el-form-item>
-                <el-form-item label="转入黑名单">
-                  <el-switch v-model="changeForm.toBlacklist" active-text="是" inactive-text="否"></el-switch>
-                  <div style="font-size: 12px; color: #999;">* 若开启，将发起拉黑流程</div>
-                </el-form-item>
-              </el-form>
-              <template #footer>
-                <span class="dialog-footer">
-                  <el-button @click="changeDialogVisible = false">取消</el-button>
-                  <el-button type="primary" @click="submitChange">{{ changeForm.status === '临时' ? '确定' : '提交变更' }}</el-button>
-                </span>
-              </template>
-            </el-dialog>
           </div>
 
           <!-- VIEW: 列表页面 (临时/合格/黑名单) -->
@@ -329,7 +409,7 @@ const showTips = ref(true)
 const changeDialogVisible = ref(false)
 
 // Certificate Logic
-const currentCertType = ref('')
+// const currentCertType = ref('') // Removed
 const uploadedFiles = ref([])
 
 const form = reactive({
@@ -357,10 +437,20 @@ const searchForm = reactive({
 
 const changeForm = reactive({
   id: '',
-  name: '',
-  contact: '',
+  enterprise_name: '',
+  credit_code: '',
+  entry_type: '',
+  category: '',
+  region: '',
+  industry: '',
+  brand: '',
+  contact_person: '',
   mobile: '',
-  bank: '',
+  bank_name: '',
+  branch_name: '',
+  bank_account: '',
+  settlement: '',
+  purchaser: '',
   reason: '',
   status: '',
   toBlacklist: false
@@ -402,11 +492,59 @@ const certificateOptions = computed(() => {
   }
 })
 
+// ... existing fetchData and others ...
+
+// Helper to find file
+const getCurrentTitle = () => {
+  const map = {
+    'apply': '供应商申请',
+    'change': '供应商变更',
+    'temp': '潜在供应商',
+    'qualified': '合格供应商',
+    'blacklist': '供应商黑名单'
+  }
+  return map[currentMenu.value] || ''
+}
+
+const getStatusType = (status) => {
+  if (status === 'qualified') return 'success'
+  if (status === 'temp') return 'warning'
+  return 'info'
+}
+
+const getFileCount = (certType) => {
+    return uploadedFiles.value.filter(f => f.type === certType).length
+}
+
+const getFileForCert = (certType) => {
+    return uploadedFiles.value.find(f => f.type === certType)
+}
+
+const handleFileChange = (uploadFile, certType) => {
+  const idx = uploadedFiles.value.findIndex(f => f.type === certType)
+  if (idx !== -1) {
+      uploadedFiles.value.splice(idx, 1)
+  }
+  
+  uploadedFiles.value.push({
+    type: certType,
+    name: uploadFile.name
+  })
+  ElMessage.success(`已添加 ${certType}`)
+}
+
+const removeFile = (certType) => {
+  const idx = uploadedFiles.value.findIndex(f => f.type === certType)
+  if (idx !== -1) {
+      uploadedFiles.value.splice(idx, 1)
+      // ElMessage.success('已移除文件')
+  }
+}
+
 const fetchData = async () => {
   let apiStatus = ''
   if (currentMenu.value === 'qualified') apiStatus = 'qualified'
   else if (currentMenu.value === 'temp') apiStatus = 'temp'
-  else if (currentMenu.value === 'blacklist') apiStatus = 'blacklist'
   
   const params = {
     page: 1,
@@ -428,7 +566,11 @@ const fetchData = async () => {
             id: item.ID,
             name: item.enterprise_name,
             code: item.credit_code,
-            contact: item.contact_person
+            contact: item.contact_person,
+            status_base: item.status === 'blacklist' ? 'temp' : item.status,
+            is_blacklist_str: item.status === 'blacklist' ? '是' : '否',
+            // Map additional fields if needed by UI directly, but most are in item
+            ...item
         }))
     }
   } catch (error) {
@@ -481,29 +623,56 @@ const exportExcel = () => {
 }
 
 const openChangeDialog = (row) => {
-  changeForm.id = row.id
-  changeForm.name = row.name
-  changeForm.contact = row.contact
-  changeForm.mobile = row.mobile
-  changeForm.bank = row.bank_name
-  changeForm.reason = ''
-  changeForm.status = row.status
-  changeForm.toBlacklist = false
+  Object.assign(changeForm, {
+    id: row.id,
+    enterprise_name: row.enterprise_name,
+    credit_code: row.credit_code,
+    entry_type: row.entry_type,
+    category: row.category,
+    region: row.region,
+    industry: row.industry,
+    brand: row.brand,
+    contact_person: row.contact_person,
+    mobile: row.mobile,
+    bank_name: row.bank_name,
+    branch_name: row.branch_name,
+    bank_account: row.bank_account,
+    settlement: row.settlement,
+    purchaser: row.purchaser,
+    status: row.status,
+    reason: '',
+    toBlacklist: row.status === 'blacklist'
+  })
   changeDialogVisible.value = true
 }
 
 const submitChange = async () => {
   const payload = {
     ID: changeForm.id,
-    contact_person: changeForm.contact,
+    enterprise_name: changeForm.enterprise_name,
+    credit_code: changeForm.credit_code,
+    entry_type: changeForm.entry_type,
+    category: changeForm.category,
+    region: changeForm.region,
+    industry: changeForm.industry,
+    brand: changeForm.brand,
+    contact_person: changeForm.contact_person,
     mobile: changeForm.mobile,
-    bank_name: changeForm.bank,
-  }
-  // For demo, we are using ID to update
-  if (changeForm.toBlacklist) {
-    payload.status = 'blacklist'
+    bank_name: changeForm.bank_name,
+    branch_name: changeForm.branch_name,
+    bank_account: changeForm.bank_account,
+    settlement: changeForm.settlement,
+    purchaser: changeForm.purchaser,
+    status: changeForm.toBlacklist ? 'blacklist' : (changeForm.status === 'blacklist' ? 'qualified' : changeForm.status)
   }
   
+  // If specifically toggling blacklist
+  if (changeForm.toBlacklist) {
+      payload.status = 'blacklist'
+  } else if (changeForm.status === 'blacklist' && !changeForm.toBlacklist) {
+      payload.status = 'qualified'
+  }
+
   try {
     const res = await service({
         url: `/suppliers/${changeForm.id}`,
@@ -512,11 +681,7 @@ const submitChange = async () => {
     })
 
     if (res.code === 0) {
-        if (changeForm.toBlacklist) {
-            ElMessage.warning('已转入黑名单')
-        } else {
-            ElMessage.success('变更成功')
-        }
+        ElMessage.success('变更成功')
         changeDialogVisible.value = false
         fetchData()
     }
@@ -525,38 +690,39 @@ const submitChange = async () => {
   }
 }
 
-const getCurrentTitle = () => {
-  const map = {
-    'apply': '供应商申请',
-    'change': '供应商变更',
-    'temp': '临时供应商',
-    'qualified': '合格供应商',
-    'blacklist': '供应商黑名单'
-  }
-  return map[currentMenu.value] || ''
-}
-
-const getStatusType = (status) => {
-  if (status === 'qualified') return 'success'
-  if (status === 'temp') return 'warning'
-  if (status === 'blacklist') return 'danger'
-  return 'info'
-}
-
-const handleFileChange = (uploadFile) => {
-  if (!currentCertType.value) {
-    ElMessage.warning('请先选择证书类型！')
-    return
-  }
-  uploadedFiles.value.push({
-    type: currentCertType.value,
-    name: uploadFile.name
-  })
-  ElMessage.success(`已添加 ${currentCertType.value}`)
-}
-
-const removeFile = (index) => {
-  uploadedFiles.value.splice(index, 1)
+const submitRowChange = async (row) => {
+    const status = row.is_blacklist_str === '是' ? 'blacklist' : row.status_base
+    const payload = {
+        ID: row.id,
+        enterprise_name: row.enterprise_name,
+        credit_code: row.credit_code,
+        entry_type: row.entry_type,
+        category: row.category,
+        region: row.region,
+        industry: row.industry,
+        brand: row.brand,
+        contact_person: row.contact_person,
+        mobile: row.mobile,
+        bank_name: row.bank_name,
+        branch_name: row.branch_name,
+        settlement: row.settlement,
+        purchaser: row.purchaser,
+        bank_account: row.bank_account,
+        status: status
+    }
+    try {
+        const res = await service({
+            url: `/suppliers/${row.id}`,
+            method: 'put',
+            data: payload
+        })
+        if (res.code === 0) {
+            ElMessage.success('保存成功')
+            fetchData()
+        }
+    } catch(e) {
+        ElMessage.error('保存失败')
+    }
 }
 </script>
 
