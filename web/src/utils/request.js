@@ -99,7 +99,7 @@ const resetLoading = () => {
 // http request 拦截器
 service.interceptors.request.use(
   (config) => {
-    if (!config.donNotShowLoading) {
+    if (!config.dontShowLoading) {
       showLoading(config.loadingOption)
     }
     const userStore = useUserStore()
@@ -112,7 +112,7 @@ service.interceptors.request.use(
     return config
   },
   (error) => {
-    if (!error.config.donNotShowLoading) {
+    if (!error.config.dontShowLoading) {
       closeLoading()
     }
     emitter.emit('show-error', {
@@ -132,7 +132,7 @@ function getErrorMessage(error) {
 service.interceptors.response.use(
   (response) => {
     const userStore = useUserStore()
-    if (!response.config.donNotShowLoading) {
+    if (!response.config.dontShowLoading) {
       closeLoading()
     }
     if (response.headers['new-token']) {
@@ -156,7 +156,7 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    if (!error.config.donNotShowLoading) {
+    if (!error.config.dontShowLoading) {
       closeLoading()
     }
 
@@ -185,10 +185,10 @@ service.interceptors.response.use(
     }
 
     if (error.response.status === 404) {
-       emitter.emit('show-error', {
-        code: '404',
-        message: '资源未找到',
-      })
+       // emitter.emit('show-error', {
+       //  code: '404',
+       //  message: '资源未找到',
+       // })
       return Promise.reject(error)
     }
 

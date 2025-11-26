@@ -34,6 +34,24 @@ const routes = [
     component: () => import('@/view/supplier/index.vue')
   },
   {
+    path: '/supplier-approval',
+    name: 'SupplierApproval',
+    meta: {
+      title: '供应商审批',
+      client: true
+    },
+    component: () => import('@/view/supplier/approval/index.vue')
+  },
+  {
+    path: '/inquiry-demo',
+    name: 'InquiryDemo',
+    meta: {
+      title: '询价管理演示',
+      client: true
+    },
+    component: () => import('@/view/inquiry/index.vue')
+  },
+  {
     path: '/:catchAll(.*)',
     meta: {
       closeTab: true
