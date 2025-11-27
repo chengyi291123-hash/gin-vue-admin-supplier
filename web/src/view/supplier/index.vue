@@ -2062,6 +2062,15 @@ import { ref, reactive, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Menu, UploadFilled, Document, Delete, Edit, Search, Shop, Check, Setting, List, Trophy, Money, Warning, WarningFilled } from '@element-plus/icons-vue'
 import service from '@/utils/request' // Use the project's configured axios instance
+import {
+  getSupplierList,
+  createSupplier,
+  updateSupplier,
+  createSupplierWithCerts,
+  submitForApproval as apiSubmitForApproval,
+  approveSupplier as apiApproveSupplier,
+  getApprovalsBySupplierID
+} from '@/api/supplier'
 
 const currentMenu = ref('apply')
 const activeTab = ref('basic')
@@ -3012,7 +3021,7 @@ const fetchData = async () => {
   let apiStatus = ''
   if (currentMenu.value === 'qualified') apiStatus = 'qualified'
   else if (currentMenu.value === 'temp') apiStatus = 'temp'
-  
+
   const params = {
     page: 1,
     pageSize: 100,
@@ -3022,22 +3031,18 @@ const fetchData = async () => {
   if (searchForm.status) params.status = searchForm.status
 
   try {
-    const res = await service({
-      url: '/suppliers',
-      method: 'get',
-      params
-    })
+    const res = await getSupplierList(params)
     if (res.code === 0) {
-        tableData.value = res.data.list.map(item => ({
+        tableData.value = (res.data.list || []).map(item => ({
             ...item,
             id: item.ID,
             name: item.enterprise_name,
             code: item.credit_code,
             contact: item.contact_person,
             status_base: item.status === 'blacklist' ? 'temp' : item.status,
-            is_blacklist: item.status === 'blacklist' ? '是' : '否',
+            is_blacklist: item.is_blacklist || (item.status === 'blacklist' ? '是' : '否'),
             blacklist_reason: item.blacklist_reason || '',
-            // Map additional fields if needed by UI directly, but most are in item
+            is_blacklist_str: item.is_blacklist || (item.status === 'blacklist' ? '是' : '否'),
             ...item
         }))
     }
@@ -3064,20 +3069,41 @@ const nextTab = (tabName) => {
 const saveData = async () => {
   try {
     const payload = { ...form }
-    if (isTempAdd.value) payload.status = 'temp'
-    else payload.status = 'qualified'
-    
-    const res = await service({
-        url: '/suppliers',
-        method: 'post',
-        data: payload
-    })
-    
+    if (isTempAdd.value || supplierApplyType.value === 'temp') {
+      payload.status = 'temp'
+    } else {
+      payload.status = 'qualified'
+      payload.approval_status = 'pending'
+    }
+
+    // 收集证书数据
+    const certificates = []
+    for (const [name, data] of Object.entries(certificateDataMap.value)) {
+      if (data.validStartDate || data.validEndDate) {
+        certificates.push({
+          cert_name: name,
+          valid_start_date: data.validStartDate,
+          valid_end_date: data.validEndDate
+        })
+      }
+    }
+
+    let res
+    if (certificates.length > 0) {
+      res = await createSupplierWithCerts({
+        supplier: payload,
+        certificates: certificates
+      })
+    } else {
+      res = await createSupplier(payload)
+    }
+
     if (res.code === 0) {
-        ElMessage.success('提交申请成功！')
-        fetchData()
+      ElMessage.success('提交申请成功！')
+      fetchData()
     }
   } catch(e) {
+    console.error(e)
     ElMessage.error('提交失败')
   }
 }
@@ -3311,11 +3337,7 @@ const submitChange = async () => {
   }
 
   try {
-    const res = await service({
-        url: `/suppliers/${changeForm.id}`,
-        method: 'put',
-        data: payload
-    })
+    const res = await updateSupplier(changeForm.id, payload)
 
     if (res.code === 0) {
         ElMessage.success('变更成功')
@@ -3345,14 +3367,12 @@ const submitRowChange = async (row) => {
         settlement: row.settlement,
         purchaser: row.purchaser,
         bank_account: row.bank_account,
+        is_blacklist: row.is_blacklist_str,
+        blacklist_reason: row.blacklist_reason,
         status: status
     }
     try {
-        const res = await service({
-            url: `/suppliers/${row.id}`,
-            method: 'put',
-            data: payload
-        })
+        const res = await updateSupplier(row.id, payload)
         if (res.code === 0) {
             ElMessage.success('保存成功')
             fetchData()
@@ -3452,7 +3472,7 @@ const quickApprove = (row) => {
 }
 
 // 确认快速审批
-const confirmQuickApproval = () => {
+const confirmQuickApproval = async () => {
     if (!quickApprovalResult.value) {
         ElMessage.warning('请选择审批结果')
         return
@@ -3461,58 +3481,100 @@ const confirmQuickApproval = () => {
     const row = quickApprovalRow.value
     if (!row) return
 
-    if (quickApprovalResult.value === 'approve') {
-        // 审批通过
-        row.status = '已通过'
-        row.current_node = '已完成'
-        ElMessage.success('审批通过成功')
-        showQuickApprovalDialog.value = false
-    } else if (quickApprovalResult.value === 'reject_fill') {
-        // 填写问题 - 跳转到供应商准入申请填写
-        if (!quickApprovalRemark.value) {
-            ElMessage.warning('请填写需要补充/修改的内容说明')
-            return
+    try {
+        if (quickApprovalResult.value === 'approve') {
+            // 审批通过
+            const res = await apiApproveSupplier({
+                supplier_id: row.id || row.ID,
+                node_name: row.current_node,
+                approver: currentUser.value,
+                status: 'completed',
+                comment: quickApprovalRemark.value || '审批通过',
+                reject_type: ''
+            })
+
+            if (res.code === 0) {
+                row.status = '已通过'
+                row.current_node = '已完成'
+                ElMessage.success('审批通过成功')
+                showQuickApprovalDialog.value = false
+                fetchData()
+            }
+        } else if (quickApprovalResult.value === 'reject_fill') {
+            // 填写问题 - 跳转到供应商准入申请填写
+            if (!quickApprovalRemark.value) {
+                ElMessage.warning('请填写需要补充/修改的内容说明')
+                return
+            }
+
+            const res = await apiApproveSupplier({
+                supplier_id: row.id || row.ID,
+                node_name: row.current_node,
+                approver: currentUser.value,
+                status: 'rejected',
+                comment: quickApprovalRemark.value,
+                reject_type: '填写问题'
+            })
+
+            if (res.code === 0) {
+                row.status = '待补充'
+                row.current_node = '待补充资料'
+                row.reject_reason = quickApprovalRemark.value
+                row.reject_type = '填写问题'
+                ElMessage.success('已退回供应商补充资料')
+                showQuickApprovalDialog.value = false
+                // 跳转到供应商准入申请页面
+                currentMenu.value = 'supplier-apply'
+                isApprovalMode.value = true
+                currentApprovalRow.value = row
+                // 填充表单数据用于修改
+                Object.assign(form, {
+                    enterprise_name: row.name || row.enterprise_name || '',
+                    credit_code: row.credit_code || '',
+                    entry_type: row.supplier_type === '生产商' ? 'manufacturing' : (row.entry_type || 'trading'),
+                    category: row.category || 'raw',
+                    region: row.region || '',
+                    industry: row.industry === '普通' ? 'normal' : (row.industry || 'normal'),
+                    brand: row.brand || '',
+                    contact_person: row.contact || row.contact_person || '',
+                    mobile: row.phone || row.mobile || '',
+                    purchaser: row.purchaser || 'Admin',
+                    email: row.email || '',
+                    settlement: row.settlement || 'm30',
+                    bank_name: row.bank_name || '',
+                    branch_name: row.branch_name || '',
+                    bank_account: row.bank_account || ''
+                })
+            }
+        } else if (quickApprovalResult.value === 'reject_unqualified') {
+            // 资质不合格 - 终止
+            if (!quickApprovalRemark.value) {
+                ElMessage.warning('请填写不合格原因')
+                return
+            }
+
+            const res = await apiApproveSupplier({
+                supplier_id: row.id || row.ID,
+                node_name: row.current_node,
+                approver: currentUser.value,
+                status: 'rejected',
+                comment: quickApprovalRemark.value,
+                reject_type: '资质不合格'
+            })
+
+            if (res.code === 0) {
+                row.status = '已驳回'
+                row.current_node = '审批终止'
+                row.reject_reason = quickApprovalRemark.value
+                row.reject_type = '资质不合格'
+                ElMessage.success('审批已终止')
+                showQuickApprovalDialog.value = false
+                fetchData()
+            }
         }
-        row.status = '待补充'
-        row.current_node = '待补充资料'
-        row.reject_reason = quickApprovalRemark.value
-        row.reject_type = '填写问题'
-        ElMessage.success('已退回供应商补充资料')
-        showQuickApprovalDialog.value = false
-        // 跳转到供应商准入申请页面
-        currentMenu.value = 'supplier-apply'
-        isApprovalMode.value = true
-        currentApprovalRow.value = row
-        // 填充表单数据用于修改
-        Object.assign(form, {
-            enterprise_name: row.name || '',
-            credit_code: row.credit_code || '',
-            entry_type: row.supplier_type === '生产商' ? 'manufacturing' : 'trading',
-            category: 'raw',
-            region: '',
-            industry: row.industry === '普通' ? 'normal' : 'special',
-            brand: '',
-            contact_person: row.contact || '',
-            mobile: row.phone || '',
-            purchaser: 'Admin',
-            email: row.email || '',
-            settlement: 'm30',
-            bank_name: '',
-            branch_name: '',
-            bank_account: ''
-        })
-    } else if (quickApprovalResult.value === 'reject_unqualified') {
-        // 资质不合格 - 终止
-        if (!quickApprovalRemark.value) {
-            ElMessage.warning('请填写不合格原因')
-            return
-        }
-        row.status = '已驳回'
-        row.current_node = '审批终止'
-        row.reject_reason = quickApprovalRemark.value
-        row.reject_type = '资质不合格'
-        ElMessage.success('审批已终止')
-        showQuickApprovalDialog.value = false
+    } catch (e) {
+        console.error(e)
+        ElMessage.error('审批操作失败')
     }
 }
 
@@ -3728,41 +3790,37 @@ const saveDraft = () => {
 }
 
 // 保存潜在供应商（不进入审批流程）
-const submitTempSupplier = () => {
+const submitTempSupplier = async () => {
     // 潜在供应商只需要基本信息
     if (!form.enterprise_name || !form.contact_person || !form.mobile) {
         ElMessage.error('请填写企业名称、联系人和手机号')
         return
     }
 
-    ElMessageBox.confirm('确认保存为潜在供应商？潜在供应商不进入审批流程。', '保存潜在供应商', {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'info'
-    }).then(() => {
-        // 添加到潜在供应商列表（字段与供应商准入申请一致）
-        const categoryMap = { 'raw': '原材料', 'electronic': '电子元器件', 'office': '办公用品' }
-        const industryMap = { 'normal': '普通', 'nuclear': '核电', 'military': '军工', 'petrochemical': '石化', 'other': '其他' }
-        const newTemp = {
-            id: tempSupplierData.value.length + 1,
-            enterprise_name: form.enterprise_name,
-            credit_code: form.credit_code || '',
-            entry_type: form.entry_type === 'manufacturing' ? '生产商' : '贸易商',
-            category: categoryMap[form.category] || '原材料',
-            industry: industryMap[form.industry] || '普通',
-            brand: form.brand || '',
-            contact_person: form.contact_person,
-            mobile: form.mobile,
-            email: form.email || ''
-        }
-        tempSupplierData.value.unshift(newTemp)
+    try {
+        await ElMessageBox.confirm('确认保存为潜在供应商？潜在供应商不进入审批流程。', '保存潜在供应商', {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'info'
+        })
 
-        ElMessage.success('保存成功！已添加到潜在供应商列表')
-        // 跳转到潜在供应商列表
-        currentMenu.value = 'temp'
-        // 重置表单
-        resetForm()
-    }).catch(() => {})
+        const payload = { ...form, status: 'temp' }
+        const res = await createSupplier(payload)
+
+        if (res.code === 0) {
+            ElMessage.success('保存成功！已添加到潜在供应商列表')
+            // 跳转到潜在供应商列表
+            currentMenu.value = 'temp'
+            fetchData()
+            // 重置表单
+            resetForm()
+        }
+    } catch (e) {
+        if (e !== 'cancel') {
+            console.error(e)
+            ElMessage.error('保存失败')
+        }
+    }
 }
 
 // 重置表单
@@ -3788,7 +3846,7 @@ const resetForm = () => {
 }
 
 // 提交审批（合格供应商）
-const submitForApproval = () => {
+const submitForApproval = async () => {
     // 验证必填项
     if (!form.enterprise_name || !form.credit_code || !form.industry || !form.brand || !form.contact_person || !form.mobile) {
         ElMessage.error('请填写所有必填项')
@@ -3803,19 +3861,67 @@ const submitForApproval = () => {
         }
     }
 
-    ElMessageBox.confirm('提交后将进入审批流程，确认提交？', '提交审批', {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning'
-    }).then(() => {
-        // 模拟提交
-        ElMessage.success('提交成功！已进入审批流程')
+    try {
+        await ElMessageBox.confirm('提交后将进入审批流程，确认提交？', '提交审批', {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning'
+        })
 
-        // 如果是核电/军工，提示会自动增加质保部审批节点
-        if (form.industry === 'nuclear' || form.industry === 'military') {
-            ElMessage.info('检测到核电/军工行业，已自动增加质保部审批节点')
+        // 先创建供应商
+        const payload = {
+            ...form,
+            status: 'temp',
+            approval_status: 'pending'
         }
-    })
+
+        // 收集证书数据
+        const certificates = []
+        for (const [name, data] of Object.entries(certificateDataMap.value)) {
+            if (data.validStartDate || data.validEndDate) {
+                certificates.push({
+                    cert_name: name,
+                    valid_start_date: data.validStartDate,
+                    valid_end_date: data.validEndDate
+                })
+            }
+        }
+
+        let createRes
+        if (certificates.length > 0) {
+            createRes = await createSupplierWithCerts({
+                supplier: payload,
+                certificates: certificates
+            })
+        } else {
+            createRes = await createSupplier(payload)
+        }
+
+        if (createRes.code === 0) {
+            // 提交审批
+            const submitRes = await apiSubmitForApproval({
+                supplier_id: createRes.data?.ID || createRes.data?.supplier?.ID,
+                approver: currentUser.value
+            })
+
+            if (submitRes.code === 0) {
+                ElMessage.success('提交成功！已进入审批流程')
+
+                // 如果是核电/军工，提示会自动增加质保部审批节点
+                if (form.industry === 'nuclear' || form.industry === 'military') {
+                    ElMessage.info('检测到核电/军工行业，已自动增加质保部审批节点')
+                }
+
+                fetchData()
+                resetForm()
+            }
+        }
+    } catch (e) {
+        if (e !== 'cancel') {
+            console.error(e)
+            ElMessage.error('提交审批失败')
+        }
+    }
 }
 
 // ========== 采购报价处理相关方法 ==========
