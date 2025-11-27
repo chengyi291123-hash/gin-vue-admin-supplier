@@ -2427,216 +2427,11 @@ const agreementPriceData = ref([
 ])
 
 // 潜在供应商数据（全字段：序号/企业名称/统一社会信用代码/供应商类型/供应品类/合作区域/合作行业/合作品牌/联系人/联系电话/开户行/开户行名称/结算方式/采购员）
-const tempSupplierData = ref([
-  {
-    id: 1,
-    enterprise_name: '深圳华创电子科技有限公司',
-    credit_code: '91440300MA5DLXXX01',
-    entry_type: '生产商',
-    category: '原材料',
-    region: '华南区',
-    industry: '核电',
-    brand: '华创',
-    contact_person: '张三',
-    mobile: '13800138001',
-    bank_name: '中国银行',
-    branch_name: '深圳南山支行',
-    settlement: '月结30天',
-    purchaser: 'Admin'
-  },
-  {
-    id: 2,
-    enterprise_name: '北京中科元器件贸易有限公司',
-    credit_code: '91110105MA01DXXX02',
-    entry_type: '贸易商',
-    category: '电子元器件',
-    region: '华北区',
-    industry: '军工',
-    brand: '中科',
-    contact_person: '李四',
-    mobile: '13800138002',
-    bank_name: '工商银行',
-    branch_name: '北京海淀支行',
-    settlement: '月结45天',
-    purchaser: '王经理'
-  },
-  {
-    id: 3,
-    enterprise_name: '广州南方办公设备有限公司',
-    credit_code: '91440101MA5CLXXX03',
-    entry_type: '生产商',
-    category: '办公用品',
-    region: '华南区',
-    industry: '石化',
-    brand: '南方',
-    contact_person: '王五',
-    mobile: '13800138003',
-    bank_name: '建设银行',
-    branch_name: '广州天河支行',
-    settlement: '月结30天',
-    purchaser: 'Admin'
-  }
-])
+const tempSupplierData = ref([])
 
 // 合格供应商数据（字段：序号/企业名称/统一社会信用代码/供应商类型/供应品类/合作区域/合作行业/合作品牌/联系人/联系电话/开户行/开户行名称/结算方式/采购员）
-const qualifiedSupplierData = ref([
-  {
-    id: 1,
-    enterprise_name: '杭州森森休闲用品有限公司',
-    credit_code: '913301020743241989',
-    entry_type: '生产商',
-    category: '原材料',
-    region: '华东区',
-    industry: '石化',
-    brand: '森森',
-    contact_person: '俞志勇',
-    mobile: '19846768980',
-    bank_name: '中国银行',
-    branch_name: '杭州西湖支行',
-    settlement: '月结30天',
-    purchaser: 'Admin'
-  },
-  {
-    id: 2,
-    enterprise_name: '上海阀门制造有限公司',
-    credit_code: '91310000123456789A',
-    entry_type: '生产商',
-    category: '原材料',
-    region: '华东区',
-    industry: '核电',
-    brand: '沪阀',
-    contact_person: '张明',
-    mobile: '13900139001',
-    bank_name: '工商银行',
-    branch_name: '上海浦东支行',
-    settlement: '预付',
-    purchaser: '采购员A'
-  },
-  {
-    id: 3,
-    enterprise_name: '北京精密仪表有限公司',
-    credit_code: '91110000987654321B',
-    entry_type: '贸易商',
-    category: '电子元器件',
-    region: '华北区',
-    industry: '军工',
-    brand: '京仪',
-    contact_person: '李华',
-    mobile: '13900139002',
-    bank_name: '建设银行',
-    branch_name: '北京朝阳支行',
-    settlement: '货到付款',
-    purchaser: '采购员B'
-  }
-])
-const approvalData = ref([
-  {
-    id: 1,
-    code: 'GYS20231126001',
-    name: '上海核电设备有限公司',
-    type: '原材料供应商',
-    industry: 'nuclear',
-    status: '待审批',
-    current_node: '质保部审核',
-    created_time: '2023-11-26 10:00:00',
-    unified_social_credit_code: '91310000123456789A',
-    legal_representative: '张三',
-    registered_capital: '1000万元',
-    registered_address: '上海市浦东新区张江高科技园区',
-    contact_person: '李四',
-    contacts: [
-      { name: '李四', department: '采购部', position: '采购经理', mobile: '13800138000', email: 'lisi@example.com' }
-    ],
-    banks: [
-      { account_name: '上海核电设备有限公司', account_number: '1234567890123456789', bank_name: '中国银行股份有限公司上海浦东分行', branch_name: '浦东分行营业部' }
-    ],
-    approval_flow: [
-      { node: '采购员录入', status: 'completed', time: '2023-11-26 10:00:00', approver: '采购员-王明', comment: '资料齐全，提交审批' },
-      { node: '采购部长审批', status: 'completed', time: '2023-11-26 14:30:00', approver: '采购部长-刘华', comment: '同意，转质保部审核' },
-      { node: '质保部审核', status: 'current', time: '', approver: '', comment: '' },
-      { node: '副总审批', status: 'pending', time: '', approver: '', comment: '' }
-    ]
-  },
-  {
-    id: 2,
-    code: 'GYS20231126002',
-    name: '北京军工材料供应商',
-    type: '设备供应商',
-    industry: 'military',
-    status: '待审批',
-    current_node: '采购部长审批',
-    created_time: '2023-11-26 11:00:00',
-    unified_social_credit_code: '91310000987654321B',
-    legal_representative: '王五',
-    registered_capital: '500万元',
-    registered_address: '北京市朝阳区军工园区',
-    contact_person: '赵六',
-    contacts: [
-      { name: '赵六', department: '销售部', position: '销售经理', mobile: '13900139000', email: 'zhaoliu@example.com' }
-    ],
-    banks: [
-      { account_name: '北京军工材料供应商', account_number: '9876543210987654321', bank_name: '中国工商银行股份有限公司北京朝阳支行', branch_name: '朝阳支行营业部' }
-    ],
-    approval_flow: [
-      { node: '采购员录入', status: 'completed', time: '2023-11-26 11:00:00', approver: '采购员-张强', comment: '材料已核实' },
-      { node: '采购部长审批', status: 'current', time: '', approver: '', comment: '' },
-      { node: '质保部审核', status: 'pending', time: '', approver: '', comment: '' },
-      { node: '副总审批', status: 'pending', time: '', approver: '', comment: '' }
-    ]
-  },
-  {
-    id: 3,
-    code: 'GYS20231126003',
-    name: '杭州普通贸易有限公司',
-    type: '贸易商',
-    industry: 'normal',
-    status: '待审批',
-    current_node: '副总审批',
-    created_time: '2023-11-25 09:00:00',
-    unified_social_credit_code: '91330000111222333C',
-    legal_representative: '陈明',
-    registered_capital: '200万元',
-    registered_address: '杭州市西湖区文三路',
-    contact_person: '周杰',
-    contacts: [
-      { name: '周杰', department: '商务部', position: '商务经理', mobile: '13700137000', email: 'zhoujie@example.com' }
-    ],
-    banks: [
-      { account_name: '杭州普通贸易有限公司', account_number: '1111222233334444555', bank_name: '招商银行股份有限公司杭州分行', branch_name: '西湖支行' }
-    ],
-    approval_flow: [
-      { node: '采购员录入', status: 'completed', time: '2023-11-25 09:00:00', approver: '采购员-李伟', comment: '提交申请' },
-      { node: '采购部长审批', status: 'completed', time: '2023-11-25 15:00:00', approver: '采购部长-刘华', comment: '资质符合，同意' },
-      { node: '副总审批', status: 'current', time: '', approver: '', comment: '' }
-    ]
-  },
-  {
-    id: 4,
-    code: 'GYS20231124001',
-    name: '深圳电子元器件公司',
-    type: '生产商',
-    industry: 'normal',
-    status: '已通过',
-    current_node: '已完成',
-    created_time: '2023-11-24 08:30:00',
-    unified_social_credit_code: '91440000444555666D',
-    legal_representative: '黄强',
-    registered_capital: '800万元',
-    registered_address: '深圳市南山区科技园',
-    contact_person: '林芳',
-    contacts: [
-      { name: '林芳', department: '业务部', position: '业务主管', mobile: '13600136000', email: 'linfang@example.com' }
-    ],
-    banks: [
-      { account_name: '深圳电子元器件公司', account_number: '4444555566667777888', bank_name: '平安银行股份有限公司深圳分行', branch_name: '南山支行' }
-    ],
-    approval_flow: [
-      { node: '采购员录入', status: 'completed', time: '2023-11-24 08:30:00', approver: '采购员-王明', comment: '信息完整' },
-      { node: '采购部长审批', status: 'completed', time: '2023-11-24 14:00:00', approver: '采购部长-刘华', comment: '审核通过' },
-      { node: '副总审批', status: 'completed', time: '2023-11-24 17:30:00', approver: '副总-赵总', comment: '同意准入' }
-    ]
-  }
-])
+const qualifiedSupplierData = ref([])
+const approvalData = ref([])
 
 // 供应商档案库数据
 const supplierSearch = reactive({
@@ -2652,185 +2447,7 @@ const supplierList = reactive({
   pageSize: 10
 })
 
-const supplierListData = ref([
-  {
-    id: 1,
-    name: '上海核电设备有限公司',
-    credit_code: '91310000123456789A',
-    type: '生产商',
-    category: '原材料',
-    region: '华东区',
-    industry: 'nuclear',
-    industry_text: '核电',
-    brand: '核电专用',
-    contact_person: '张三',
-    mobile: '13800138001',
-    bank_name: '中国银行',
-    branch_name: '上海浦东支行',
-    bank_account: '6222021234567890123',
-    settlement: '月结30天',
-    purchaser: '采购员A',
-    supplier_status: 'qualified',
-    is_blacklist: false,
-    approval_status: '已通过',
-    current_node: '已完成',
-    apply_time: '2023-11-20 10:00:00',
-    approval_time: '2023-11-22 15:30:00',
-    last_change_time: '2023-11-25 09:00:00',
-    attachments: [
-      { name: '营业执照.pdf', url: '#' },
-      { name: '质量体系认证.pdf', url: '#' },
-      { name: '安全保密资质.pdf', url: '#' }
-    ],
-    approval_flow: [
-      { node: '采购员录入', status: 'completed', time: '2023-11-20 10:00:00', approver: '采购员A', comment: '资料齐全' },
-      { node: '采购部长审批', status: 'completed', time: '2023-11-21 14:00:00', approver: '采购部长-刘华', comment: '同意' },
-      { node: '质保部审核', status: 'completed', time: '2023-11-22 10:00:00', approver: '质保经理-王强', comment: '质保体系符合核电要求' },
-      { node: '副总审批', status: 'completed', time: '2023-11-22 15:30:00', approver: '副总-赵总', comment: '同意准入' }
-    ],
-    change_history: [
-      { change_time: '2023-11-25 09:00:00', change_field: '联系电话', old_value: '13800138000', new_value: '13800138001', change_by: 'Admin', change_reason: '联系人电话变更' }
-    ]
-  },
-  {
-    id: 2,
-    name: '北京军工材料供应商',
-    credit_code: '91110000987654321B',
-    type: '贸易商',
-    category: '电子元器件',
-    region: '华北区',
-    industry: 'military',
-    industry_text: '军工',
-    brand: '军工专用',
-    contact_person: '李四',
-    mobile: '13800138002',
-    bank_name: '工商银行',
-    branch_name: '北京朝阳支行',
-    bank_account: '6222031234567890456',
-    settlement: '预付',
-    purchaser: '采购员B',
-    supplier_status: 'qualified',
-    is_blacklist: false,
-    approval_status: '已通过',
-    current_node: '已完成',
-    apply_time: '2023-11-21 14:00:00',
-    approval_time: '2023-11-23 16:20:00',
-    last_change_time: '',
-    attachments: [
-      { name: '营业执照.pdf', url: '#' },
-      { name: '保密资质.pdf', url: '#' }
-    ],
-    approval_flow: [
-      { node: '采购员录入', status: 'completed', time: '2023-11-21 14:00:00', approver: '采购员B', comment: '材料核实' },
-      { node: '采购部长审批', status: 'completed', time: '2023-11-22 10:00:00', approver: '采购部长-刘华', comment: '同意' },
-      { node: '质保部审核', status: 'completed', time: '2023-11-23 09:00:00', approver: '质保经理-王强', comment: '保密资质符合要求' },
-      { node: '副总审批', status: 'completed', time: '2023-11-23 16:20:00', approver: '副总-赵总', comment: '同意准入' }
-    ],
-    change_history: []
-  },
-  {
-    id: 3,
-    name: '杭州普通贸易有限公司',
-    credit_code: '91330000111222333C',
-    type: '贸易商',
-    category: '办公用品',
-    region: '华东区',
-    industry: 'normal',
-    industry_text: '普通行业',
-    brand: '通用品牌',
-    contact_person: '王五',
-    mobile: '13800138003',
-    bank_name: '建设银行',
-    branch_name: '杭州西湖支行',
-    bank_account: '6222041234567890789',
-    settlement: '货到付款',
-    purchaser: '采购员C',
-    supplier_status: 'qualified',
-    is_blacklist: false,
-    approval_status: '已驳回',
-    current_node: '副总审批-驳回',
-    apply_time: '2023-11-22 09:00:00',
-    approval_time: '2023-11-22 17:00:00',
-    last_change_time: '',
-    attachments: [
-      { name: '营业执照.pdf', url: '#' }
-    ],
-    approval_flow: [
-      { node: '采购员录入', status: 'completed', time: '2023-11-22 09:00:00', approver: '采购员C', comment: '提交申请' },
-      { node: '采购部长审批', status: 'completed', time: '2023-11-22 14:00:00', approver: '采购部长-刘华', comment: '同意' },
-      { node: '副总审批', status: 'rejected', time: '2023-11-22 17:00:00', approver: '副总-赵总', comment: '资质材料不完整，请补充' }
-    ],
-    change_history: []
-  },
-  {
-    id: 4,
-    name: '深圳电子元器件公司',
-    credit_code: '91440000444555666D',
-    type: '生产商',
-    category: '电子元器件',
-    region: '华南区',
-    industry: 'normal',
-    industry_text: '普通行业',
-    brand: '深电',
-    contact_person: '林芳',
-    mobile: '13600136000',
-    bank_name: '平安银行',
-    branch_name: '深圳南山支行',
-    bank_account: '6222051234567890012',
-    settlement: '月结30天',
-    purchaser: '采购员A',
-    supplier_status: 'qualified',
-    is_blacklist: false,
-    approval_status: '已通过',
-    current_node: '已完成',
-    apply_time: '2023-11-24 08:30:00',
-    approval_time: '2023-11-24 17:30:00',
-    last_change_time: '',
-    attachments: [
-      { name: '营业执照.pdf', url: '#' },
-      { name: 'ISO9001证书.pdf', url: '#' }
-    ],
-    approval_flow: [
-      { node: '采购员录入', status: 'completed', time: '2023-11-24 08:30:00', approver: '采购员A', comment: '信息完整' },
-      { node: '采购部长审批', status: 'completed', time: '2023-11-24 14:00:00', approver: '采购部长-刘华', comment: '审核通过' },
-      { node: '副总审批', status: 'completed', time: '2023-11-24 17:30:00', approver: '副总-赵总', comment: '同意准入' }
-    ],
-    change_history: []
-  },
-  {
-    id: 5,
-    name: '广州潜在供应商E',
-    credit_code: '91440100777888999E',
-    type: '生产商',
-    category: '原材料',
-    region: '华南区',
-    industry: 'petrochemical',
-    industry_text: '石化',
-    brand: '粤石化',
-    contact_person: '陈明',
-    mobile: '13500135000',
-    bank_name: '农业银行',
-    branch_name: '广州天河支行',
-    bank_account: '6222061234567890345',
-    settlement: '预付',
-    purchaser: '采购员B',
-    supplier_status: 'temp',
-    is_blacklist: false,
-    approval_status: '待审批',
-    current_node: '采购部长审批',
-    apply_time: '2023-11-25 10:00:00',
-    approval_time: '',
-    last_change_time: '',
-    attachments: [
-      { name: '营业执照.pdf', url: '#' }
-    ],
-    approval_flow: [
-      { node: '采购员录入', status: 'completed', time: '2023-11-25 10:00:00', approver: '采购员B', comment: '潜在供应商' },
-      { node: '采购部长审批', status: 'current', time: '', approver: '', comment: '' }
-    ],
-    change_history: []
-  }
-])
+const supplierListData = ref([])
 
 const supplierDetailVisible = ref(false)
 const selectedSupplier = ref(null)
@@ -2839,36 +2456,7 @@ const selectedSupplier = ref(null)
 const approvalDetailVisible = ref(false)
 const currentApprovalRow = ref(null)
 
-const approvalSteps = ref([
-  {
-    node: '申请人提交',
-    approver: '销售员-张明',
-    time: '2023-11-20 10:00:00',
-    status: 'completed',
-    comment: '申请材料齐全'
-  },
-  {
-    node: '采购部审批',
-    approver: '采购经理-李华',
-    time: '2023-11-21 14:00:00',
-    status: 'completed',
-    comment: '资质审核通过'
-  },
-  {
-    node: '质保部审批',
-    approver: '质保经理-王强',
-    time: '2023-11-22 10:00:00',
-    status: 'completed',
-    comment: '质保体系符合要求'
-  },
-  {
-    node: '总经理审批',
-    approver: '总经理-赵总',
-    time: '2023-11-22 15:30:00',
-    status: 'completed',
-    comment: '同意准入'
-  }
-])
+const approvalSteps = ref([])
 
 const certificateOptions = computed(() => {
   if (form.entry_type === 'manufacturing') {
@@ -2949,91 +2537,38 @@ const isCertExpiringSoon = (validEndDate) => {
   return endDate <= sixMonthsLater
 }
 
-// ... existing fetchData and others ...
-
-// Helper to find file
-const getCurrentTitle = () => {
-  const map = {
-    'apply': '供应商申请',
-    'supplier-apply': '供应商准入申请',
-    'supplier-list': '供应商档案库',
-    'approval': '供应商审批',
-    'supplier-approval': '供应商审批',
-    'change': '供应商变更',
-    'supplier-change': '供应商变更',
-    'temp': '潜在供应商',
-    'qualified': '合格供应商',
-    'blacklist': '供应商黑名单',
-    'my-inquiry': '我的询价',
-    'pending-quote': '待报价项目',
-    'inquiry-ledger': '全部询报价台账',
-    'bid-projects': '中标项目管理',
-    'payment-approval': '吧盛支付申请',
-    'order-approval': '采购订单审批',
-    'agreement-price': '协议价管理'
-  }
-  return map[currentMenu.value] || ''
-}
-
-const getStatusType = (status) => {
-  if (status === 'qualified') return 'success'
-  if (status === 'temp') return 'warning'
-  return 'info'
-}
-
-const getApprovalStatusType = (status) => {
-  if (status === '待审批') return 'warning'
-  if (status === '已通过') return 'success'
-  if (status === '已驳回') return 'danger'
-  return 'info'
-}
-
-const getFileCount = (certType) => {
-    return uploadedFiles.value.filter(f => f.type === certType).length
-}
-
-const getFileForCert = (certType) => {
-    return uploadedFiles.value.find(f => f.type === certType)
-}
-
-const handleFileChange = (uploadFile, certType) => {
-  const idx = uploadedFiles.value.findIndex(f => f.type === certType)
-  if (idx !== -1) {
-      uploadedFiles.value.splice(idx, 1)
-  }
-  
-  uploadedFiles.value.push({
-    type: certType,
-    name: uploadFile.name
-  })
-  ElMessage.success(`已添加 ${certType}`)
-}
-
-const removeFile = (certType) => {
-  const idx = uploadedFiles.value.findIndex(f => f.type === certType)
-  if (idx !== -1) {
-      uploadedFiles.value.splice(idx, 1)
-      // ElMessage.success('已移除文件')
-  }
-}
-
 const fetchData = async () => {
-  let apiStatus = ''
-  if (currentMenu.value === 'qualified') apiStatus = 'qualified'
-  else if (currentMenu.value === 'temp') apiStatus = 'temp'
-
   const params = {
     page: 1,
     pageSize: 100,
   }
-  if (apiStatus) params.status = apiStatus
+
+  // 根据当前菜单设置查询参数
+  if (currentMenu.value === 'qualified') {
+      params.status = 'qualified'
+  } else if (currentMenu.value === 'temp') {
+      params.status = 'temp'
+  } else if (currentMenu.value === 'supplier-approval') {
+      // 审批列表查询参数
+      if (searchForm.approvalStatus) {
+          params.approval_status = searchForm.approvalStatus
+      }
+      if (searchForm.industry) {
+          params.industry = searchForm.industry
+      }
+  } else if (currentMenu.value === 'change') {
+      if (searchForm.status) {
+          params.status = searchForm.status
+      }
+  }
+
+  // 通用搜索参数
   if (searchForm.name) params.enterprise_name = searchForm.name
-  if (searchForm.status) params.status = searchForm.status
 
   try {
     const res = await getSupplierList(params)
     if (res.code === 0) {
-        tableData.value = (res.data.list || []).map(item => ({
+        const list = (res.data.list || []).map(item => ({
             ...item,
             id: item.ID,
             name: item.enterprise_name,
@@ -3043,8 +2578,29 @@ const fetchData = async () => {
             is_blacklist: item.is_blacklist || (item.status === 'blacklist' ? '是' : '否'),
             blacklist_reason: item.blacklist_reason || '',
             is_blacklist_str: item.is_blacklist || (item.status === 'blacklist' ? '是' : '否'),
+            type: item.entry_type === 'manufacturing' ? '生产商' : '贸易商',
+            created_time: item.CreatedAt ? new Date(item.CreatedAt).toLocaleString() : '',
+            // 映射 approval_status 为中文 status 用于显示
+            status: item.approval_status === 'pending' ? '待审批' : 
+                    (item.approval_status === 'approved' || item.approval_status === 'completed') ? '已通过' : 
+                    item.approval_status === 'rejected' ? '已驳回' : item.approval_status,
+            // 映射 industry
+            industry: item.industry === 'nuclear' ? '核电' : 
+                      item.industry === 'military' ? '军工' : 
+                      item.industry === 'petrochemical' ? '石化' : '普通',
             ...item
         }))
+
+        if (currentMenu.value === 'supplier-approval') {
+            // 过滤出有审批状态的记录
+            approvalData.value = list.filter(item => item.approval_status && item.approval_status !== '')
+        } else if (currentMenu.value === 'qualified') {
+            qualifiedSupplierData.value = list
+        } else if (currentMenu.value === 'temp') {
+            tempSupplierData.value = list
+        } else {
+            tableData.value = list
+        }
     }
   } catch (error) {
     console.error(error)
