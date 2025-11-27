@@ -2537,6 +2537,72 @@ const isCertExpiringSoon = (validEndDate) => {
   return endDate <= sixMonthsLater
 }
 
+// Helper to find file
+const getCurrentTitle = () => {
+  const map = {
+    'apply': '供应商申请',
+    'supplier-apply': '供应商准入申请',
+    'supplier-list': '供应商档案库',
+    'approval': '供应商审批',
+    'supplier-approval': '供应商审批',
+    'change': '供应商变更',
+    'supplier-change': '供应商变更',
+    'temp': '潜在供应商',
+    'qualified': '合格供应商',
+    'blacklist': '供应商黑名单',
+    'my-inquiry': '我的询价',
+    'pending-quote': '待报价项目',
+    'inquiry-ledger': '全部询报价台账',
+    'bid-projects': '中标项目管理',
+    'payment-approval': '吧盛支付申请',
+    'order-approval': '采购订单审批',
+    'agreement-price': '协议价管理'
+  }
+  return map[currentMenu.value] || ''
+}
+
+const getStatusType = (status) => {
+  if (status === 'qualified') return 'success'
+  if (status === 'temp') return 'warning'
+  return 'info'
+}
+
+const getApprovalStatusType = (status) => {
+  if (status === '待审批') return 'warning'
+  if (status === '已通过') return 'success'
+  if (status === '已驳回') return 'danger'
+  return 'info'
+}
+
+const getFileCount = (certType) => {
+    return uploadedFiles.value.filter(f => f.type === certType).length
+}
+
+const getFileForCert = (certType) => {
+    return uploadedFiles.value.find(f => f.type === certType)
+}
+
+const handleFileChange = (uploadFile, certType) => {
+  const idx = uploadedFiles.value.findIndex(f => f.type === certType)
+  if (idx !== -1) {
+      uploadedFiles.value.splice(idx, 1)
+  }
+  
+  uploadedFiles.value.push({
+    type: certType,
+    name: uploadFile.name
+  })
+  ElMessage.success(`已添加 ${certType}`)
+}
+
+const removeFile = (certType) => {
+  const idx = uploadedFiles.value.findIndex(f => f.type === certType)
+  if (idx !== -1) {
+      uploadedFiles.value.splice(idx, 1)
+      // ElMessage.success('已移除文件')
+  }
+}
+
 const fetchData = async () => {
   const params = {
     page: 1,
