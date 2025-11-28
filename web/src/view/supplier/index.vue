@@ -594,7 +594,7 @@
 
               <el-table-column label="是否黑名单" width="100">
                 <template #default="scope">
-                    <el-select v-model="scope.row.is_blacklist" size="small" style="width: 100%;">
+                    <el-select v-model="scope.row.is_blacklist_str" size="small" style="width: 100%;">
                       <el-option label="否" value="否"></el-option>
                       <el-option label="是" value="是"></el-option>
                     </el-select>
@@ -607,7 +607,7 @@
                       v-model="scope.row.blacklist_reason"
                       size="small"
                       placeholder="请输入原因"
-                      :disabled="scope.row.is_blacklist !== '是'"
+                      :disabled="scope.row.is_blacklist_str !== '是'"
                     ></el-input>
                 </template>
               </el-table-column>
@@ -695,7 +695,7 @@
               </el-table-column>
               <el-table-column prop="is_blacklist" label="黑名单" width="80">
                 <template #default="{ row }">
-                  <el-tag v-if="row.is_blacklist" type="danger" size="small">是</el-tag>
+                  <el-tag v-if="row.is_blacklist === '是'" type="danger" size="small">是</el-tag>
                   <el-tag v-else type="success" size="small">否</el-tag>
                 </template>
               </el-table-column>
@@ -771,8 +771,8 @@
                         </el-tag>
                       </el-descriptions-item>
                       <el-descriptions-item label="黑名单状态">
-                        <el-tag :type="selectedSupplier.is_blacklist ? 'danger' : 'success'">
-                          {{ selectedSupplier.is_blacklist ? '已列入黑名单' : '正常' }}
+                        <el-tag :type="selectedSupplier.is_blacklist === '是' ? 'danger' : 'success'">
+                          {{ selectedSupplier.is_blacklist === '是' ? '已列入黑名单' : '正常' }}
                         </el-tag>
                       </el-descriptions-item>
                     </el-descriptions>
@@ -2062,6 +2062,7 @@ import { ref, reactive, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Menu, UploadFilled, Document, Delete, Edit, Search, Shop, Check, Setting, List, Trophy, Money, Warning, WarningFilled } from '@element-plus/icons-vue'
 import service from '@/utils/request' // Use the project's configured axios instance
+import * as XLSX from 'xlsx'
 import {
   getSupplierList,
   createSupplier,
@@ -2069,7 +2070,8 @@ import {
   createSupplierWithCerts,
   submitForApproval as apiSubmitForApproval,
   approveSupplier as apiApproveSupplier,
-  getApprovalsBySupplierID
+  getApprovalsBySupplierID,
+  getSupplierChangeLogs
 } from '@/api/supplier'
 
 const currentMenu = ref('apply')
@@ -2634,28 +2636,31 @@ const fetchData = async () => {
   try {
     const res = await getSupplierList(params)
     if (res.code === 0) {
-        const list = (res.data.list || []).map(item => ({
-            ...item,
-            id: item.ID,
-            name: item.enterprise_name,
-            code: item.credit_code,
-            contact: item.contact_person,
-            status_base: item.status === 'blacklist' ? 'temp' : item.status,
-            is_blacklist: item.is_blacklist || (item.status === 'blacklist' ? '是' : '否'),
-            blacklist_reason: item.blacklist_reason || '',
-            is_blacklist_str: item.is_blacklist || (item.status === 'blacklist' ? '是' : '否'),
-            type: item.entry_type === 'manufacturing' ? '生产商' : '贸易商',
-            created_time: item.CreatedAt ? new Date(item.CreatedAt).toLocaleString() : '',
-            // 映射 approval_status 为中文 status 用于显示
-            status: item.approval_status === 'pending' ? '待审批' : 
-                    (item.approval_status === 'approved' || item.approval_status === 'completed') ? '已通过' : 
-                    item.approval_status === 'rejected' ? '已驳回' : item.approval_status,
-            // 映射 industry
-            industry: item.industry === 'nuclear' ? '核电' : 
-                      item.industry === 'military' ? '军工' : 
-                      item.industry === 'petrochemical' ? '石化' : '普通',
-            ...item
-        }))
+        const list = (res.data.list || []).map(item => {
+            // 计算黑名单状态：优先使用 is_blacklist 字段，其次根据 status 判断
+            const isBlacklistValue = item.is_blacklist || (item.status === 'blacklist' ? '是' : '否')
+            // 计算基础状态：如果是黑名单，基础状态显示原来的潜在/合格
+            const statusBase = item.status === 'blacklist' ? 'temp' : (item.status || 'temp')
+
+            return {
+                ...item,  // 先展开原始数据
+                // 再覆盖需要处理的字段
+                id: item.ID,
+                name: item.enterprise_name,
+                code: item.credit_code,
+                contact: item.contact_person,
+                status_base: statusBase,
+                is_blacklist: isBlacklistValue,
+                is_blacklist_str: isBlacklistValue,
+                blacklist_reason: item.blacklist_reason || '',
+                type: item.entry_type === 'manufacturing' ? '生产商' : '贸易商',
+                created_time: item.CreatedAt ? new Date(item.CreatedAt).toLocaleString() : '',
+                // 保留原始字段用于显示
+                original_status: item.status,
+                original_approval_status: item.approval_status,
+                original_industry: item.industry
+            }
+        })
 
         if (currentMenu.value === 'supplier-approval') {
             // 过滤出有审批状态的记录
@@ -2664,6 +2669,21 @@ const fetchData = async () => {
             qualifiedSupplierData.value = list
         } else if (currentMenu.value === 'temp') {
             tempSupplierData.value = list
+        } else if (currentMenu.value === 'supplier-list') {
+            // 供应商档案库 - 显示所有供应商
+            supplierListData.value = list.map(item => ({
+                ...item,
+                // 使用原始状态判断，因为 list 中的 item.status 已被处理过
+                supplier_status: item.original_status === 'blacklist' ? 'temp' : (item.original_status || 'temp'),
+                // 使用原始审批状态
+                approval_status: item.original_approval_status === 'pending' ? '待审批' :
+                    (item.original_approval_status === 'approved' || item.original_approval_status === 'completed') ? '已通过' :
+                    item.original_approval_status === 'rejected' ? '已驳回' : (item.original_approval_status || '-'),
+                apply_time: item.CreatedAt ? new Date(item.CreatedAt).toLocaleString() : '-',
+                approval_time: item.UpdatedAt ? new Date(item.UpdatedAt).toLocaleString() : '-',
+                last_change_time: item.UpdatedAt ? new Date(item.UpdatedAt).toLocaleString() : '-'
+            }))
+            supplierList.total = res.data.total || list.length
         } else {
             tableData.value = list
         }
@@ -2735,7 +2755,94 @@ const onSearch = () => {
 }
 
 const exportExcel = () => {
-  ElMessage.success('正在导出 Excel...')
+  let sourceData = []
+  let fileName = '供应商数据'
+
+  // 完整字段列表（所有导出共用）
+  const headers = ['序号', '企业名称', '统一社会信用代码', '供应商类型', '供应品类', '合作区域', '合作行业', '合作品牌', '联系人', '联系电话', '邮箱', '开户行', '开户行名称', '银行账号', '结算方式', '采购员', '状态', '是否黑名单', '黑名单原因']
+
+  // 根据当前菜单选择导出的数据
+  if (currentMenu.value === 'qualified') {
+    fileName = '合格供应商台账'
+    sourceData = qualifiedSupplierData.value
+  } else if (currentMenu.value === 'temp') {
+    fileName = '潜在供应商台账'
+    sourceData = tempSupplierData.value
+  } else if (currentMenu.value === 'supplier-list') {
+    fileName = '供应商档案库'
+    sourceData = supplierListData.value
+  } else {
+    fileName = '供应商数据'
+    sourceData = tableData.value
+  }
+
+  if (!sourceData || sourceData.length === 0) {
+    ElMessage.warning('没有数据可导出')
+    return
+  }
+
+  // 映射数据到导出格式
+  const data = sourceData.map((item, index) => ({
+    '序号': index + 1,
+    '企业名称': item.enterprise_name || '',
+    '统一社会信用代码': item.credit_code || '',
+    '供应商类型': item.entry_type === 'manufacturing' ? '生产商' : (item.entry_type === 'trading' ? '贸易商' : (item.entry_type || '')),
+    '供应品类': formatCategoryExport(item.category),
+    '合作区域': item.region || '',
+    '合作行业': formatIndustryExport(item.industry),
+    '合作品牌': item.brand || '',
+    '联系人': item.contact_person || '',
+    '联系电话': item.mobile || '',
+    '邮箱': item.email || '',
+    '开户行': item.bank_name || '',
+    '开户行名称': item.branch_name || '',
+    '银行账号': item.bank_account || '',
+    '结算方式': formatSettlementExport(item.settlement),
+    '采购员': item.purchaser || '',
+    '状态': formatStatusExport(item.status),
+    '是否黑名单': item.is_blacklist || '否',
+    '黑名单原因': item.blacklist_reason || ''
+  }))
+
+  // 创建工作簿和工作表
+  const wb = XLSX.utils.book_new()
+  const ws = XLSX.utils.json_to_sheet(data, { header: headers })
+
+  // 设置列宽
+  ws['!cols'] = headers.map(h => ({ wch: Math.max(h.length * 2, 12) }))
+
+  // 添加工作表到工作簿
+  XLSX.utils.book_append_sheet(wb, ws, fileName)
+
+  // 生成文件名（含日期）
+  const date = new Date()
+  const dateStr = `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`
+  const fullFileName = `${fileName}_${dateStr}.xlsx`
+
+  // 导出文件
+  XLSX.writeFile(wb, fullFileName)
+  ElMessage.success(`已导出 ${data.length} 条数据到 ${fullFileName}`)
+}
+
+// 导出用格式化函数
+const formatCategoryExport = (val) => {
+  const map = { 'raw': '原材料', 'electronic': '电子元器件', 'mechanical': '机械配件', 'chemical': '化工产品' }
+  return map[val] || val || ''
+}
+
+const formatIndustryExport = (val) => {
+  const map = { 'petrochemical': '石化', 'nuclear': '核电', 'military': '军工', 'normal': '普通' }
+  return map[val] || val || ''
+}
+
+const formatSettlementExport = (val) => {
+  const map = { 'm30': '月结30天', 'm60': '月结60天', 'm90': '月结90天', 'cod': '货到付款', 'prepaid': '预付款' }
+  return map[val] || val || ''
+}
+
+const formatStatusExport = (val) => {
+  const map = { 'qualified': '合格', 'temp': '潜在', 'blacklist': '黑名单' }
+  return map[val] || val || ''
 }
 
 // 询价相关方法
@@ -3350,13 +3457,91 @@ const resetSupplierSearch = () => {
 }
 
 const exportSupplierList = () => {
-    ElMessage.success('正在导出Excel...')
-    // TODO: 实际导出逻辑
+    const data = supplierListData.value
+    if (!data || data.length === 0) {
+        ElMessage.warning('没有数据可导出')
+        return
+    }
+
+    const headers = ['序号', '企业名称', '统一社会信用代码', '供应商类型', '供应品类', '合作区域', '合作行业', '合作品牌', '联系人', '联系电话', '邮箱', '开户行', '开户行名称', '银行账号', '结算方式', '采购员', '状态', '是否黑名单', '黑名单原因']
+
+    const exportData = data.map((item, index) => ({
+        '序号': index + 1,
+        '企业名称': item.enterprise_name || '',
+        '统一社会信用代码': item.credit_code || '',
+        '供应商类型': item.entry_type === 'manufacturing' ? '生产商' : '贸易商',
+        '供应品类': formatCategory(item.category),
+        '合作区域': item.region || '',
+        '合作行业': formatIndustry(item.industry),
+        '合作品牌': item.brand || '',
+        '联系人': item.contact_person || '',
+        '联系电话': item.mobile || '',
+        '邮箱': item.email || '',
+        '开户行': item.bank_name || '',
+        '开户行名称': item.branch_name || '',
+        '银行账号': item.bank_account || '',
+        '结算方式': formatSettlement(item.settlement),
+        '采购员': item.purchaser || '',
+        '状态': formatStatus(item.status),
+        '是否黑名单': item.is_blacklist || '否',
+        '黑名单原因': item.blacklist_reason || ''
+    }))
+
+    const wb = XLSX.utils.book_new()
+    const ws = XLSX.utils.json_to_sheet(exportData, { header: headers })
+    ws['!cols'] = headers.map(h => ({ wch: Math.max(h.length * 2, 12) }))
+    XLSX.utils.book_append_sheet(wb, ws, '供应商档案库')
+
+    const date = new Date()
+    const dateStr = `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`
+    XLSX.writeFile(wb, `供应商档案库_${dateStr}.xlsx`)
+    ElMessage.success(`已导出 ${exportData.length} 条数据`)
 }
 
-const viewSupplierDetail = (row) => {
-    selectedSupplier.value = row
+// 格式化辅助函数
+const formatCategory = (val) => {
+    const map = { 'raw': '原材料', 'electronic': '电子元器件', 'mechanical': '机械配件', 'chemical': '化工产品' }
+    return map[val] || val || ''
+}
+
+const formatIndustry = (val) => {
+    const map = { 'petrochemical': '石化', 'nuclear': '核电', 'military': '军工', 'normal': '普通' }
+    return map[val] || val || ''
+}
+
+const formatSettlement = (val) => {
+    const map = { 'm30': '月结30天', 'm60': '月结60天', 'm90': '月结90天', 'cod': '货到付款', 'prepaid': '预付款' }
+    return map[val] || val || ''
+}
+
+const formatStatus = (val) => {
+    const map = { 'qualified': '合格', 'temp': '潜在', 'blacklist': '黑名单' }
+    return map[val] || val || ''
+}
+
+const viewSupplierDetail = async (row) => {
+    selectedSupplier.value = { ...row, change_history: [] }
     supplierDetailVisible.value = true
+
+    // 获取变更记录
+    try {
+        const supplierId = row.id || row.ID
+        if (supplierId) {
+            const res = await getSupplierChangeLogs(supplierId)
+            if (res.code === 0 && res.data.list) {
+                selectedSupplier.value.change_history = res.data.list.map(item => ({
+                    change_time: item.CreatedAt ? new Date(item.CreatedAt).toLocaleString() : '-',
+                    change_field: item.change_field,
+                    old_value: item.old_value || '-',
+                    new_value: item.new_value || '-',
+                    change_by: item.change_by || '系统',
+                    change_reason: item.change_reason || '-'
+                }))
+            }
+        }
+    } catch (e) {
+        console.error('获取变更记录失败', e)
+    }
 }
 
 const previewAttachment = (file) => {

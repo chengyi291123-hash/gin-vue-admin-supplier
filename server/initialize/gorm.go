@@ -44,6 +44,12 @@ func RegisterTables() {
 	db := global.GVA_DB
 	err := db.AutoMigrate(
 		supplier.Supplier{},
+		supplier.SupplierChangeLog{},
+		supplier.SupplierCertificate{},
+		supplier.SupplierApproval{},
+		supplier.PurchaseOrder{},
+		supplier.PurchaseOrderItem{},
+		supplier.AgreementPrice{},
 		system.SysApi{},
 		system.SysIgnoreApi{},
 		system.SysUser{},

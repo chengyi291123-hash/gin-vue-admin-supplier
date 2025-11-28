@@ -38,9 +38,112 @@ func (s *SupplierService) DeleteSupplier(sup supplier.Supplier) (err error) {
 	return err
 }
 
-func (s *SupplierService) UpdateSupplier(sup supplier.Supplier) (err error) {
-	err = global.GVA_DB.Save(&sup).Error
-	return err
+func (s *SupplierService) UpdateSupplier(sup supplier.Supplier, changeBy string) (err error) {
+	// 先获取旧数据用于对比
+	var oldSup supplier.Supplier
+	if err = global.GVA_DB.Where("id = ?", sup.ID).First(&oldSup).Error; err != nil {
+		return err
+	}
+
+	// 开启事务
+	tx := global.GVA_DB.Begin()
+
+	// 记录变更
+	changes := compareAndRecordChanges(oldSup, sup, changeBy)
+	for _, change := range changes {
+		if err = tx.Create(&change).Error; err != nil {
+			tx.Rollback()
+			return err
+		}
+	}
+
+	// 使用 Updates 只更新非零值字段，避免覆盖 created_at 等时间字段
+	err = tx.Model(&supplier.Supplier{}).Where("id = ?", sup.ID).Updates(map[string]interface{}{
+		"enterprise_name":  sup.EnterpriseName,
+		"credit_code":      sup.CreditCode,
+		"entry_type":       sup.EntryType,
+		"category":         sup.Category,
+		"region":           sup.Region,
+		"industry":         sup.Industry,
+		"brand":            sup.Brand,
+		"contact_person":   sup.ContactPerson,
+		"mobile":           sup.Mobile,
+		"email":            sup.Email,
+		"purchaser":        sup.Purchaser,
+		"bank_name":        sup.BankName,
+		"branch_name":      sup.BranchName,
+		"bank_account":     sup.BankAccount,
+		"settlement":       sup.Settlement,
+		"status":           sup.Status,
+		"is_blacklist":     sup.IsBlacklist,
+		"blacklist_reason": sup.BlacklistReason,
+	}).Error
+
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit().Error
+}
+
+// compareAndRecordChanges 对比新旧数据并生成变更记录
+func compareAndRecordChanges(oldSup, newSup supplier.Supplier, changeBy string) []supplier.SupplierChangeLog {
+	var changes []supplier.SupplierChangeLog
+	fieldNames := map[string]string{
+		"enterprise_name":  "企业名称",
+		"credit_code":      "统一社会信用代码",
+		"entry_type":       "供应商类型",
+		"category":         "供应品类",
+		"region":           "合作区域",
+		"industry":         "合作行业",
+		"brand":            "合作品牌",
+		"contact_person":   "联系人",
+		"mobile":           "联系电话",
+		"email":            "邮箱",
+		"purchaser":        "采购员",
+		"bank_name":        "开户行",
+		"branch_name":      "开户行名称",
+		"bank_account":     "银行账号",
+		"settlement":       "结算方式",
+		"status":           "状态",
+		"is_blacklist":     "是否黑名单",
+		"blacklist_reason": "黑名单原因",
+	}
+
+	// 对比各字段
+	compareField := func(fieldKey, oldVal, newVal string) {
+		if oldVal != newVal {
+			changes = append(changes, supplier.SupplierChangeLog{
+				SupplierID:  newSup.ID,
+				ChangeField: fieldNames[fieldKey],
+				OldValue:    oldVal,
+				NewValue:    newVal,
+				ChangeBy:    changeBy,
+			})
+		}
+	}
+
+	compareField("enterprise_name", oldSup.EnterpriseName, newSup.EnterpriseName)
+	compareField("credit_code", oldSup.CreditCode, newSup.CreditCode)
+	compareField("entry_type", oldSup.EntryType, newSup.EntryType)
+	compareField("category", oldSup.Category, newSup.Category)
+	compareField("region", oldSup.Region, newSup.Region)
+	compareField("industry", oldSup.Industry, newSup.Industry)
+	compareField("brand", oldSup.Brand, newSup.Brand)
+	compareField("contact_person", oldSup.ContactPerson, newSup.ContactPerson)
+	compareField("mobile", oldSup.Mobile, newSup.Mobile)
+	compareField("email", oldSup.Email, newSup.Email)
+	compareField("purchaser", oldSup.Purchaser, newSup.Purchaser)
+	compareField("bank_name", oldSup.BankName, newSup.BankName)
+	compareField("branch_name", oldSup.BranchName, newSup.BranchName)
+	compareField("bank_account", oldSup.BankAccount, newSup.BankAccount)
+	compareField("settlement", oldSup.Settlement, newSup.Settlement)
+	compareField("status", oldSup.Status, newSup.Status)
+	compareField("is_blacklist", oldSup.IsBlacklist, newSup.IsBlacklist)
+	compareField("blacklist_reason", oldSup.BlacklistReason, newSup.BlacklistReason)
+
+	return changes
 }
 
 func (s *SupplierService) GetSupplier(id uint) (sup supplier.Supplier, err error) {
@@ -331,4 +434,11 @@ func (s *SupplierService) GetAgreementPriceList(info request.PageInfo, search su
 	}
 	err = db.Limit(limit).Offset(offset).Order("created_at desc").Find(&prices).Error
 	return prices, total, err
+}
+
+// ==================== 供应商变更记录操作 ====================
+
+func (s *SupplierService) GetChangeLogsBySupplierID(supplierID uint) (logs []supplier.SupplierChangeLog, err error) {
+	err = global.GVA_DB.Where("supplier_id = ?", supplierID).Order("created_at desc").Find(&logs).Error
+	return
 }

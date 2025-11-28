@@ -24,6 +24,7 @@ func (s *SupplierRouter) InitSupplierRouter(Router *gin.RouterGroup) {
 		supplierRouterWithoutRecord.GET("", supApi.GetSupplierList)                // 获取供应商列表
 		supplierRouterWithoutRecord.GET("/:id", supApi.FindSupplier)               // 获取单个供应商
 		supplierRouterWithoutRecord.GET("/:id/with-certs", supApi.FindSupplierWithCerts) // 获取供应商(含证书)
+		supplierRouterWithoutRecord.GET("/:id/change-logs", supApi.GetChangeLogsBySupplierID) // 获取供应商变更记录
 	}
 
 	// 供应商证书操作

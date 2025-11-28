@@ -59,7 +59,23 @@ func (s *SupplierApi) DeleteSupplier(c *gin.Context) {
 func (s *SupplierApi) UpdateSupplier(c *gin.Context) {
 	var sup supplier.Supplier
 	_ = c.ShouldBindJSON(&sup)
-	if err := supService.UpdateSupplier(sup); err != nil {
+	// 从 URL 路径获取 ID
+	idStr := c.Param("id")
+	if idStr != "" {
+		id, _ := strconv.Atoi(idStr)
+		sup.ID = uint(id)
+	}
+	if sup.ID == 0 {
+		global.GVA_LOG.Error("更新失败: ID 为空")
+		response.FailWithMessage("更新失败: 缺少供应商ID", c)
+		return
+	}
+	// 获取变更人（从请求中获取或使用默认值）
+	changeBy := c.GetHeader("X-Change-By")
+	if changeBy == "" {
+		changeBy = "系统"
+	}
+	if err := supService.UpdateSupplier(sup, changeBy); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
@@ -352,5 +368,18 @@ func (s *SupplierApi) GetAgreementPriceList(c *gin.Context) {
 			Page:     pageInfo.Page,
 			PageSize: pageInfo.PageSize,
 		}, "获取成功", c)
+	}
+}
+
+// ==================== 供应商变更记录接口 ====================
+
+func (s *SupplierApi) GetChangeLogsBySupplierID(c *gin.Context) {
+	idStr := c.Param("id")
+	id, _ := strconv.Atoi(idStr)
+	if logs, err := supService.GetChangeLogsBySupplierID(uint(id)); err != nil {
+		global.GVA_LOG.Error("获取变更记录失败!", zap.Error(err))
+		response.FailWithMessage("获取变更记录失败", c)
+	} else {
+		response.OkWithData(gin.H{"list": logs}, c)
 	}
 }

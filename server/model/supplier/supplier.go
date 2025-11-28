@@ -117,3 +117,18 @@ type AgreementPrice struct {
 func (AgreementPrice) TableName() string {
 	return "sys_agreement_prices"
 }
+
+// SupplierChangeLog 供应商变更记录表
+type SupplierChangeLog struct {
+	global.GVA_MODEL
+	SupplierID   uint   `json:"supplier_id" form:"supplier_id" gorm:"index;comment:供应商ID"`
+	ChangeField  string `json:"change_field" form:"change_field" gorm:"comment:变更字段"`
+	OldValue     string `json:"old_value" form:"old_value" gorm:"type:text;comment:原值"`
+	NewValue     string `json:"new_value" form:"new_value" gorm:"type:text;comment:新值"`
+	ChangeBy     string `json:"change_by" form:"change_by" gorm:"comment:变更人"`
+	ChangeReason string `json:"change_reason" form:"change_reason" gorm:"comment:变更原因"`
+}
+
+func (SupplierChangeLog) TableName() string {
+	return "sys_supplier_change_logs"
+}

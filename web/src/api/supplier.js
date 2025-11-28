@@ -229,3 +229,13 @@ export const getAgreementPriceList = (params) => {
     params
   })
 }
+
+// ==================== 供应商变更记录接口 ====================
+
+// 获取供应商变更记录
+export const getSupplierChangeLogs = (supplierId) => {
+  return service({
+    url: `/suppliers/${supplierId}/change-logs`,
+    method: 'get'
+  })
+}
