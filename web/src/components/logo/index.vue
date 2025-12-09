@@ -11,8 +11,8 @@ const props = defineProps({
   }
 })
 
-const darkLogoPath = '/logo-dark.png';
-const lightLogoPath = '/logo.png';
+const darkLogoPath = '/logo-dark.svg';
+const lightLogoPath = '/logo.svg';
 
 const appStore = useAppStore();
 const { isDark } = storeToRefs(appStore);
@@ -68,15 +68,12 @@ function getSize() {
   <img v-if="!showTextPlaceholder && logoSrc" :src="logoSrc" :alt="$GIN_VUE_ADMIN.appName" class="object-contain"
     :style="{
       ...getSize()
-    }" :class="{
-      'filter invert-[90%] hue-rotate-180 brightness-110':
-        isDark && logoSrc === '/logo.png',
     }" />
   <div v-else-if="showTextPlaceholder"
     class="rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center text-gray-700 dark:text-gray-200 font-bold text-xs"
     :style="{
       ...getSize()
     }">
-    GVA
+    叭盛
   </div>
 </template>

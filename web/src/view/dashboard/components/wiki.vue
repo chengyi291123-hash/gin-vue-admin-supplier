@@ -28,16 +28,12 @@
       url: 'https://gin-gonic.com/'
     },
     {
-      title: 'GVA 文档',
-      url: 'https://www.gin-vue-admin.com/'
+      title: '帮助文档',
+      url: 'https://www.bashengkeji.com/docs'
     },
     {
-      title: '插件市场',
-      url: 'https://plugin.gin-vue-admin.com/'
-    },
-    {
-      title: 'github 仓库',
-      url: 'https://github.com/flipped-aurora/gin-vue-admin'
+      title: '叭盛科技',
+      url: 'https://www.bashengkeji.com'
     }
   ]
 </script>

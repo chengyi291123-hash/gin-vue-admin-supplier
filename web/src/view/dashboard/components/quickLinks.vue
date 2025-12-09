@@ -175,13 +175,13 @@
   const recentVisits = [
     {
       icon: Reading,
-      title: '授权购买',
-      path: 'https://gin-vue-admin.com/empower/index.html'
+      title: '帮助文档',
+      path: 'https://www.bashengkeji.com/docs'
     },
     {
       icon: Document,
-      title: '插件市场',
-      path: 'https://plugin.gin-vue-admin.com/#/layout/home'
+      title: '关于我们',
+      path: 'https://www.bashengkeji.com'
     }
   ]
 </script>

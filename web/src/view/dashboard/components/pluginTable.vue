@@ -24,41 +24,38 @@
   const tableData = [
     {
       ranking: 1,
-      title: '组织管理插件:更方便管理组织，分配资源权限。',
+      title: '用户管理：管理系统用户，分配角色权限。',
       click_num: 523,
       hot: 263,
-      link: 'https://plugin.gin-vue-admin.com/#/layout/newPluginInfo?id=36'
+      link: '#'
     },
     {
       ranking: 2,
-      title:
-        'Kubernetes容器管理:，Kubernetes 原生资源管理，提供炫酷的YAML 编辑，Pod 终端，方便运维兄弟管理k8s资源',
+      title: '角色管理：配置系统角色，管理角色权限。',
       click_num: 416,
       hot: 223,
-      link: 'https://plugin.gin-vue-admin.com/#/layout/newPluginInfo?id=42'
+      link: '#'
     },
     {
       ranking: 3,
-      title:
-        '定时任务配置化管理:本插件用于对系统内部的定时任务进行配置化管理，可以配置自定义的函数和HTTP，可以配置cron和remark等等',
+      title: '菜单管理：配置系统菜单，控制菜单显示。',
       click_num: 337,
       hot: 176,
-      link: 'https://plugin.gin-vue-admin.com/#/layout/newPluginInfo?id=67'
+      link: '#'
     },
     {
       ranking: 4,
-      title:
-        '官网CMS系统：基于Gin-Vue-Admin 和 插件市场客户端开发基座开发的企业官网类（cms）系统',
+      title: 'API管理：管理系统API接口，控制接口权限。',
       click_num: 292,
       hot: 145,
-      link: 'https://plugin.gin-vue-admin.com/#/layout/newPluginInfo?id=69'
+      link: '#'
     },
     {
       ranking: 5,
-      title: '微信支付插件：提供扫码支付功能（需自行对接业务）',
+      title: '操作日志：记录系统操作日志，便于追溯。',
       click_num: 173,
       hot: 110,
-      link: 'https://plugin.gin-vue-admin.com/#/layout/newPluginInfo?id=28'
+      link: '#'
     }
   ]
 </script>
