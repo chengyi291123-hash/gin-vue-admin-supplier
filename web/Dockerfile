@@ -1,25 +1,31 @@
-# 如果需要用 cicd ，请设置环境变量：
-# variables:
-#     DOCKER_BUILDKIT: 1
+# 叭盛供应商管理系统 - 前端 Dockerfile
+FROM node:20-alpine AS builder
 
-FROM node:20-slim AS base
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
-COPY . /app
 WORKDIR /app
 
+# 复制依赖文件
+COPY package*.json ./
 
-FROM base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod
+# 安装依赖
+RUN npm install --registry=https://registry.npmmirror.com
 
-FROM base AS build
-COPY --from=prod-deps /app/node_modules /app/node_modules
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install && pnpm run build
+# 复制源代码
+COPY . .
 
+# 构建生产版本
+RUN npm run build
 
+# 运行阶段
 FROM nginx:alpine
-LABEL MAINTAINER="bypanghu@163.com"
-COPY --from=base  /app/.docker-compose/nginx/conf.d/my.conf /etc/nginx/conf.d/my.conf
-COPY --from=build  /app/dist /usr/share/nginx/html
-RUN ls -al /usr/share/nginx/html
+
+LABEL MAINTAINER="basheng"
+
+# 复制 nginx 配置
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# 复制构建产物
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
