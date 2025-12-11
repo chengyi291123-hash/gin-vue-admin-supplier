@@ -23,8 +23,8 @@ redis:
     #是否使用redis集群模式
     useCluster: false
     #使用集群模式addr和db默认无效
-    addr: 127.0.0.1:6379
-    password: ""
+    addr: 172.238.7.148:6379
+    password: "ySwwLezBEQ"
     db: 0
     clusterAddrs:
         - "172.21.0.3:7000"
@@ -35,8 +35,8 @@ redis:
 redis-list:
     - name: cache           # 数据库的名称,注意: name 需要在 redis-list 中唯一
       useCluster: false     # 是否使用redis集群模式
-      addr: 127.0.0.1:6379  # 使用集群模式addr和db默认无效
-      password: ""
+      addr: 172.238.7.148:6379  # 使用集群模式addr和db默认无效
+      password: "ySwwLezBEQ"
       db: 0
       clusterAddrs:
           - "172.21.0.3:7000"
@@ -99,14 +99,14 @@ captcha:
     open-captcha-timeout: 3600 # open-captcha大于0时才生效
 
 # mysql connect configuration
-# 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://gin-vue-admin.com/docs/first_master）
+# 云端数据库配置
 mysql:
-    path: "127.0.0.1"
+    path: "172.238.7.148"
     port: "3306"
     config: "charset=utf8mb4&parseTime=True&loc=Local"
     db-name: "gva"
-    username: "root"
-    password: "root123456"
+    username: "gva"
+    password: "mZjpm6nbZGctmApR"
     max-idle-conns: 10
     max-open-conns: 100
     log-mode: "info"
