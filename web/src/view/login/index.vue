@@ -2,17 +2,22 @@
   <div class="login-container">
     <!-- 动态背景 -->
     <div class="bg-layer">
-      <div class="grid-lines"></div>
-      <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-        <div class="shape shape-5"></div>
+      <!-- 渐变背景 -->
+      <div class="gradient-bg"></div>
+      <!-- 装饰圆形 -->
+      <div class="deco-circle circle-1"></div>
+      <div class="deco-circle circle-2"></div>
+      <div class="deco-circle circle-3"></div>
+      <!-- 流动线条 -->
+      <svg class="flow-lines" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+        <path class="flow-path path-1" d="M-100,200 Q400,100 600,300 T1000,250 T1400,350 T2000,200" />
+        <path class="flow-path path-2" d="M-100,400 Q300,500 500,350 T900,450 T1300,300 T2000,400" />
+        <path class="flow-path path-3" d="M-100,600 Q400,700 700,550 T1100,650 T1500,500 T2000,600" />
+      </svg>
+      <!-- 浮动粒子 -->
+      <div class="particles">
+        <span v-for="i in 20" :key="i" class="particle" :style="getParticleStyle(i)"></span>
       </div>
-      <div class="glow-orb glow-1"></div>
-      <div class="glow-orb glow-2"></div>
-      <div class="glow-orb glow-3"></div>
     </div>
 
     <!-- 主内容区 -->
@@ -22,77 +27,98 @@
         <div class="brand-wrapper">
           <!-- Logo -->
           <div class="logo-container">
-            <div class="logo-ring">
-              <div class="ring-inner"></div>
+            <div class="logo-bg">
+              <div class="logo-ring"></div>
             </div>
-            <div class="logo-core">
-              <span class="logo-char">B</span>
-              <span class="logo-char">S</span>
+            <div class="logo-text">
+              <span class="logo-b">B</span>
+              <span class="logo-s">S</span>
             </div>
           </div>
 
           <!-- 品牌名称 -->
           <div class="brand-text">
             <h1 class="brand-name">
-              <span class="char" style="--i: 0">叭</span>
-              <span class="char" style="--i: 1">盛</span>
-              <span class="char" style="--i: 2">科</span>
-              <span class="char" style="--i: 3">技</span>
+              <span class="char" v-for="(char, index) in '叭盛科技'" :key="index" :style="`--i: ${index}`">{{ char }}</span>
             </h1>
             <div class="brand-en">BASHENG TECHNOLOGY</div>
           </div>
 
-          <!-- 装饰线 -->
-          <div class="deco-line">
-            <div class="line-pulse"></div>
+          <!-- 分隔线 -->
+          <div class="divider">
+            <div class="divider-line"></div>
+            <div class="divider-dot"></div>
+            <div class="divider-line"></div>
           </div>
 
           <!-- Slogan -->
           <p class="slogan">
-            <span class="slogan-word">智能驱动</span>
-            <span class="slogan-dot"></span>
-            <span class="slogan-word">数据赋能</span>
-            <span class="slogan-dot"></span>
-            <span class="slogan-word">安全护航</span>
+            <span class="slogan-item">
+              <span class="slogan-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </svg>
+              </span>
+              <span class="slogan-text">智能驱动</span>
+            </span>
+            <span class="slogan-item">
+              <span class="slogan-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                  <polyline points="7.5 4.21 12 6.81 16.5 4.21"/>
+                  <polyline points="7.5 19.79 7.5 14.6 3 12"/>
+                  <polyline points="21 12 16.5 14.6 16.5 19.79"/>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+              </span>
+              <span class="slogan-text">数据赋能</span>
+            </span>
+            <span class="slogan-item">
+              <span class="slogan-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </span>
+              <span class="slogan-text">安全护航</span>
+            </span>
           </p>
 
           <!-- 特性卡片 -->
           <div class="feature-cards">
-            <div class="feature-card" style="--delay: 0">
-              <div class="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0-6v6m18-6v6"/>
-                </svg>
+            <div class="feature-card" v-for="(feature, index) in features" :key="index" :style="`--delay: ${index}`">
+              <div class="card-icon" :style="`background: ${feature.gradient}`">
+                <component :is="feature.icon" />
               </div>
-              <div class="card-content">
-                <span class="card-title">智慧管理</span>
-                <span class="card-desc">全流程数字化</span>
+              <div class="card-info">
+                <span class="card-title">{{ feature.title }}</span>
+                <span class="card-desc">{{ feature.desc }}</span>
+              </div>
+              <div class="card-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
               </div>
             </div>
+          </div>
 
-            <div class="feature-card" style="--delay: 1">
-              <div class="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M3 3v18h18"/>
-                  <path d="M18 9l-5 5-2-2-4 4"/>
-                </svg>
+          <!-- 底部装饰 -->
+          <div class="brand-footer">
+            <div class="stats">
+              <div class="stat-item">
+                <span class="stat-value">99.9%</span>
+                <span class="stat-label">系统稳定性</span>
               </div>
-              <div class="card-content">
-                <span class="card-title">数据洞察</span>
-                <span class="card-desc">实时分析决策</span>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <span class="stat-value">500+</span>
+                <span class="stat-label">企业客户</span>
               </div>
-            </div>
-
-            <div class="feature-card" style="--delay: 2">
-              <div class="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <path d="M9 12l2 2 4-4"/>
-                </svg>
-              </div>
-              <div class="card-content">
-                <span class="card-title">安全可靠</span>
-                <span class="card-desc">企业级防护</span>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <span class="stat-value">24/7</span>
+                <span class="stat-label">技术支持</span>
               </div>
             </div>
           </div>
@@ -101,17 +127,21 @@
 
       <!-- 右侧登录区 -->
       <div class="login-area">
-        <div class="login-panel">
-          <!-- 面板装饰 -->
-          <div class="panel-corner tl"></div>
-          <div class="panel-corner tr"></div>
-          <div class="panel-corner bl"></div>
-          <div class="panel-corner br"></div>
+        <div class="login-card">
+          <!-- 卡片光效 -->
+          <div class="card-glow"></div>
 
           <!-- 登录头部 -->
           <div class="login-header">
-            <h2 class="login-title">系统登录</h2>
-            <p class="login-subtitle">System Login</p>
+            <div class="welcome-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+              </svg>
+            </div>
+            <h2 class="login-title">欢迎回来</h2>
+            <p class="login-subtitle">Welcome Back</p>
           </div>
 
           <!-- 登录表单 -->
@@ -124,83 +154,105 @@
             @keyup.enter="submitForm"
           >
             <el-form-item prop="username" class="form-item">
-              <div class="input-wrapper">
-                <div class="input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                  </svg>
+              <div class="input-group">
+                <label class="input-label">用户名</label>
+                <div class="input-wrapper">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                      <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                  </span>
+                  <el-input
+                    v-model="loginFormData.username"
+                    placeholder="请输入用户名"
+                    class="custom-input"
+                  />
                 </div>
-                <el-input
-                  v-model="loginFormData.username"
-                  placeholder="请输入用户名"
-                  class="custom-input"
-                />
               </div>
             </el-form-item>
 
             <el-form-item prop="password" class="form-item">
-              <div class="input-wrapper">
-                <div class="input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                  </svg>
+              <div class="input-group">
+                <label class="input-label">密码</label>
+                <div class="input-wrapper">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                  </span>
+                  <el-input
+                    v-model="loginFormData.password"
+                    type="password"
+                    placeholder="请输入密码"
+                    show-password
+                    class="custom-input"
+                  />
                 </div>
-                <el-input
-                  v-model="loginFormData.password"
-                  type="password"
-                  placeholder="请输入密码"
-                  show-password
-                  class="custom-input"
-                />
               </div>
             </el-form-item>
 
             <el-form-item v-if="loginFormData.openCaptcha" prop="captcha" class="form-item">
-              <div class="captcha-row">
-                <div class="input-wrapper captcha-input">
-                  <div class="input-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                      <path d="M2 17l10 5 10-5"/>
-                      <path d="M2 12l10 5 10-5"/>
-                    </svg>
+              <div class="input-group">
+                <label class="input-label">验证码</label>
+                <div class="captcha-row">
+                  <div class="input-wrapper captcha-input">
+                    <span class="input-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                      </svg>
+                    </span>
+                    <el-input
+                      v-model="loginFormData.captcha"
+                      placeholder="请输入验证码"
+                      class="custom-input"
+                    />
                   </div>
-                  <el-input
-                    v-model="loginFormData.captcha"
-                    placeholder="验证码"
-                    class="custom-input"
-                  />
-                </div>
-                <div class="captcha-img" @click="loginVerify()">
-                  <img v-if="picPath" :src="picPath" alt="验证码" />
-                  <span v-else class="captcha-loading">加载中</span>
+                  <div class="captcha-box" @click="loginVerify()">
+                    <img v-if="picPath" :src="picPath" alt="验证码" />
+                    <span v-else class="captcha-loading">
+                      <svg class="loading-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </div>
             </el-form-item>
 
             <el-form-item class="form-item submit-item">
-              <button type="button" class="submit-btn" @click="submitForm">
-                <span class="btn-text">登 录</span>
-                <span class="btn-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
+              <button type="button" class="login-btn" @click="submitForm">
+                <span class="btn-content">
+                  <span class="btn-text">立即登录</span>
+                  <span class="btn-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="5" y1="12" x2="19" y2="12"/>
+                      <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                  </span>
                 </span>
-                <div class="btn-shine"></div>
+                <div class="btn-bg"></div>
               </button>
             </el-form-item>
           </el-form>
 
-          <!-- 底部操作 -->
-          <div class="login-footer">
-            <button class="footer-link" @click="checkInit">
-              <span class="link-dot"></span>
+          <!-- 快捷操作 -->
+          <div class="login-actions">
+            <button class="action-btn" @click="checkInit">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
               <span>系统初始化</span>
             </button>
-            <button class="footer-link" @click="router.push({ name: 'SupplierDemo' })">
-              <span class="link-dot"></span>
+            <button class="action-btn" @click="router.push({ name: 'SupplierDemo' })">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
               <span>查看演示</span>
             </button>
           </div>
@@ -218,7 +270,7 @@
 <script setup>
 import { captcha } from '@/api/user'
 import { checkDB } from '@/api/initdb'
-import { reactive, ref } from 'vue'
+import { reactive, ref, h } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/pinia/modules/user'
@@ -229,6 +281,66 @@ defineOptions({
 
 const router = useRouter()
 const captchaRequiredLength = ref(6)
+
+// 特性数据
+const features = [
+  {
+    title: '智慧管理',
+    desc: '全流程数字化管控',
+    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    icon: {
+      render() {
+        return h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [
+          h('rect', { x: '3', y: '3', width: '18', height: '18', rx: '2', ry: '2' }),
+          h('line', { x1: '3', y1: '9', x2: '21', y2: '9' }),
+          h('line', { x1: '9', y1: '21', x2: '9', y2: '9' })
+        ])
+      }
+    }
+  },
+  {
+    title: '数据洞察',
+    desc: '实时分析决策支持',
+    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    icon: {
+      render() {
+        return h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [
+          h('line', { x1: '18', y1: '20', x2: '18', y2: '10' }),
+          h('line', { x1: '12', y1: '20', x2: '12', y2: '4' }),
+          h('line', { x1: '6', y1: '20', x2: '6', y2: '14' })
+        ])
+      }
+    }
+  },
+  {
+    title: '安全可靠',
+    desc: '企业级安全防护',
+    gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    icon: {
+      render() {
+        return h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [
+          h('path', { d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' }),
+          h('polyline', { points: '9 12 11 14 15 10' })
+        ])
+      }
+    }
+  }
+]
+
+// 粒子样式生成
+const getParticleStyle = (i) => {
+  const size = Math.random() * 6 + 2
+  const left = Math.random() * 100
+  const delay = Math.random() * 20
+  const duration = Math.random() * 10 + 15
+  return {
+    width: `${size}px`,
+    height: `${size}px`,
+    left: `${left}%`,
+    animationDelay: `${delay}s`,
+    animationDuration: `${duration}s`
+  }
+}
 
 const checkUsername = (rule, value, callback) => {
   if (value.length < 5) {
@@ -331,34 +443,30 @@ const checkInit = async () => {
 </script>
 
 <style lang="scss" scoped>
-// 引入字体
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
 
-// 颜色变量
-:root {
-  --bg-deep: #0a0e17;
-  --bg-dark: #0d1320;
-  --bg-card: rgba(15, 23, 42, 0.8);
-  --border-color: rgba(56, 189, 248, 0.15);
-  --border-glow: rgba(56, 189, 248, 0.4);
-  --accent-primary: #38bdf8;
-  --accent-secondary: #818cf8;
-  --accent-tertiary: #22d3ee;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --glow-cyan: rgba(34, 211, 238, 0.5);
-  --glow-blue: rgba(56, 189, 248, 0.5);
-  --glow-purple: rgba(129, 140, 248, 0.4);
-}
+// 颜色变量 - 明亮现代风格
+$primary: #4f46e5;
+$primary-light: #818cf8;
+$primary-dark: #3730a3;
+$secondary: #06b6d4;
+$accent: #f472b6;
+$success: #10b981;
+
+$bg-start: #f8fafc;
+$bg-end: #e0e7ff;
+$card-bg: rgba(255, 255, 255, 0.85);
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$text-muted: #94a3b8;
+$border-color: rgba(148, 163, 184, 0.2);
 
 .login-container {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: var(--bg-deep);
   overflow: hidden;
-  font-family: 'Rajdhani', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans SC', -apple-system, sans-serif;
 }
 
 // 背景层
@@ -368,131 +476,123 @@ const checkInit = async () => {
   overflow: hidden;
 }
 
-// 网格线背景
-.grid-lines {
+.gradient-bg {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  animation: gridMove 20s linear infinite;
+  background: linear-gradient(135deg, $bg-start 0%, $bg-end 50%, #fae8ff 100%);
 }
 
-@keyframes gridMove {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(60px, 60px); }
+// 装饰圆形
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.6;
+  animation: floatCircle 20s ease-in-out infinite;
+
+  &.circle-1 {
+    width: 600px;
+    height: 600px;
+    top: -200px;
+    right: -100px;
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.4), rgba(167, 139, 250, 0.3));
+    animation-delay: 0s;
+  }
+
+  &.circle-2 {
+    width: 400px;
+    height: 400px;
+    bottom: -100px;
+    left: 10%;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(16, 185, 129, 0.2));
+    animation-delay: -7s;
+  }
+
+  &.circle-3 {
+    width: 300px;
+    height: 300px;
+    top: 40%;
+    left: 30%;
+    background: linear-gradient(135deg, rgba(244, 114, 182, 0.25), rgba(251, 146, 60, 0.2));
+    animation-delay: -14s;
+  }
 }
 
-// 浮动几何形状
-.floating-shapes {
+@keyframes floatCircle {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+// 流动线条
+.flow-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.flow-path {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.15;
+
+  &.path-1 {
+    stroke: $primary;
+    stroke-dasharray: 20 10;
+    animation: flowLine 15s linear infinite;
+  }
+
+  &.path-2 {
+    stroke: $secondary;
+    stroke-dasharray: 15 15;
+    animation: flowLine 20s linear infinite reverse;
+  }
+
+  &.path-3 {
+    stroke: $accent;
+    stroke-dasharray: 25 5;
+    animation: flowLine 18s linear infinite;
+  }
+}
+
+@keyframes flowLine {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 1000; }
+}
+
+// 浮动粒子
+.particles {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.shape {
+.particle {
   position: absolute;
-  border: 1px solid;
-  opacity: 0.15;
-  animation: float 20s ease-in-out infinite;
-
-  &.shape-1 {
-    top: 15%;
-    left: 10%;
-    width: 120px;
-    height: 120px;
-    border-color: var(--accent-primary);
-    transform: rotate(45deg);
-    animation-delay: 0s;
-  }
-
-  &.shape-2 {
-    top: 60%;
-    left: 5%;
-    width: 80px;
-    height: 80px;
-    border-color: var(--accent-secondary);
-    border-radius: 50%;
-    animation-delay: -5s;
-  }
-
-  &.shape-3 {
-    top: 25%;
-    right: 35%;
-    width: 60px;
-    height: 60px;
-    border-color: var(--accent-tertiary);
-    animation-delay: -10s;
-  }
-
-  &.shape-4 {
-    bottom: 20%;
-    left: 25%;
-    width: 100px;
-    height: 100px;
-    border-color: var(--accent-primary);
-    border-radius: 50%;
-    animation-delay: -7s;
-  }
-
-  &.shape-5 {
-    top: 70%;
-    right: 45%;
-    width: 50px;
-    height: 50px;
-    border-color: var(--accent-secondary);
-    transform: rotate(30deg);
-    animation-delay: -3s;
-  }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-20px) rotate(5deg); }
-  50% { transform: translateY(0) rotate(0deg); }
-  75% { transform: translateY(20px) rotate(-5deg); }
-}
-
-// 光晕效果
-.glow-orb {
-  position: absolute;
+  bottom: -10px;
+  background: linear-gradient(135deg, $primary-light, $secondary);
   border-radius: 50%;
-  filter: blur(80px);
   opacity: 0.4;
-  animation: orbPulse 8s ease-in-out infinite;
-
-  &.glow-1 {
-    top: 10%;
-    left: 20%;
-    width: 400px;
-    height: 400px;
-    background: var(--glow-blue);
-    animation-delay: 0s;
-  }
-
-  &.glow-2 {
-    bottom: 10%;
-    left: 30%;
-    width: 300px;
-    height: 300px;
-    background: var(--glow-purple);
-    animation-delay: -3s;
-  }
-
-  &.glow-3 {
-    top: 40%;
-    right: 20%;
-    width: 350px;
-    height: 350px;
-    background: var(--glow-cyan);
-    animation-delay: -5s;
-  }
+  animation: particleFloat linear infinite;
 }
 
-@keyframes orbPulse {
-  0%, 100% { transform: scale(1); opacity: 0.3; }
-  50% { transform: scale(1.1); opacity: 0.5; }
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(720deg);
+    opacity: 0;
+  }
 }
 
 // 主内容
@@ -509,162 +609,178 @@ const checkInit = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px;
+  padding: 60px 80px;
 }
 
 .brand-wrapper {
-  max-width: 500px;
+  max-width: 520px;
 }
 
 // Logo
 .logo-container {
   position: relative;
-  width: 100px;
-  height: 100px;
-  margin-bottom: 40px;
+  width: 88px;
+  height: 88px;
+  margin-bottom: 32px;
+}
+
+.logo-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
+  border-radius: 24px;
+  transform: rotate(-10deg);
+  box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.4);
+  animation: logoFloat 6s ease-in-out infinite;
 }
 
 .logo-ring {
   position: absolute;
-  inset: 0;
-  border: 2px solid var(--accent-primary);
-  border-radius: 24px;
-  transform: rotate(45deg);
-  animation: ringRotate 10s linear infinite;
+  inset: -8px;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  animation: ringRotate 20s linear infinite;
+}
 
-  .ring-inner {
-    position: absolute;
-    inset: 8px;
-    border: 1px solid var(--accent-tertiary);
-    border-radius: 18px;
-    opacity: 0.5;
-  }
+@keyframes logoFloat {
+  0%, 100% { transform: rotate(-10deg) translateY(0); }
+  50% { transform: rotate(-10deg) translateY(-8px); }
 }
 
 @keyframes ringRotate {
-  0% { transform: rotate(45deg); }
-  100% { transform: rotate(405deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-.logo-core {
+.logo-text {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2px;
-}
-
-.logo-char {
-  font-family: 'Orbitron', monospace;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text-primary);
-  text-shadow: 0 0 20px var(--glow-cyan);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 // 品牌文字
 .brand-text {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .brand-name {
-  font-size: 48px;
+  font-size: 52px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: $text-primary;
   margin: 0 0 8px 0;
-  letter-spacing: 8px;
+  letter-spacing: 4px;
   display: flex;
-  gap: 4px;
 }
 
 .char {
   display: inline-block;
-  animation: charReveal 0.8s ease-out forwards;
-  animation-delay: calc(var(--i) * 0.1s);
+  animation: charBounce 0.6s ease-out forwards;
+  animation-delay: calc(var(--i) * 0.08s);
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(30px);
 }
 
-@keyframes charReveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes charBounce {
+  0% { opacity: 0; transform: translateY(30px); }
+  60% { transform: translateY(-5px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .brand-en {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
-  font-weight: 500;
-  color: var(--accent-primary);
-  letter-spacing: 4px;
+  font-weight: 600;
+  color: $primary;
+  letter-spacing: 3px;
   opacity: 0;
-  animation: fadeIn 0.8s ease-out 0.5s forwards;
+  animation: fadeSlide 0.6s ease-out 0.4s forwards;
 }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-// 装饰线
-.deco-line {
-  position: relative;
-  width: 100%;
+// 分隔线
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeSlide 0.6s ease-out 0.5s forwards;
+}
+
+.divider-line {
+  flex: 1;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-tertiary), transparent);
-  margin-bottom: 32px;
-  opacity: 0;
-  animation: fadeIn 0.8s ease-out 0.6s forwards;
+  background: linear-gradient(90deg, $primary, transparent);
+  border-radius: 1px;
+
+  &:last-child {
+    background: linear-gradient(90deg, transparent, $secondary);
+  }
 }
 
-.line-pulse {
-  position: absolute;
-  left: 0;
-  top: -2px;
-  width: 6px;
-  height: 6px;
-  background: var(--accent-primary);
+.divider-dot {
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, $primary, $secondary);
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--glow-cyan), 0 0 20px var(--glow-cyan);
-  animation: linePulse 3s ease-in-out infinite;
+  animation: dotPulse 2s ease-in-out infinite;
 }
 
-@keyframes linePulse {
-  0%, 100% { left: 0; }
-  50% { left: calc(100% - 6px); }
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
 }
 
 // Slogan
 .slogan {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 0 0 48px 0;
+  gap: 32px;
+  margin: 0 0 40px 0;
   opacity: 0;
-  animation: fadeIn 0.8s ease-out 0.7s forwards;
+  animation: fadeSlide 0.6s ease-out 0.6s forwards;
 }
 
-.slogan-word {
-  font-size: 16px;
+.slogan-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.slogan-icon {
+  width: 20px;
+  height: 20px;
+  color: $primary;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.slogan-text {
+  font-size: 14px;
   font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: 2px;
-}
-
-.slogan-dot {
-  width: 4px;
-  height: 4px;
-  background: var(--accent-primary);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--glow-cyan);
+  color: $text-secondary;
 }
 
 // 特性卡片
 .feature-cards {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+  margin-bottom: 40px;
 }
 
 .feature-card {
@@ -672,48 +788,51 @@ const checkInit = async () => {
   align-items: center;
   gap: 16px;
   padding: 16px 20px;
-  background: rgba(15, 23, 42, 0.5);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+  background: $card-bg;
+  border: 1px solid $border-color;
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
   transform: translateX(-20px);
-  animation: cardSlide 0.6s ease-out forwards;
-  animation-delay: calc(0.8s + var(--delay) * 0.15s);
+  animation: cardReveal 0.5s ease-out forwards;
+  animation-delay: calc(0.7s + var(--delay) * 0.1s);
 
   &:hover {
-    border-color: var(--border-glow);
-    background: rgba(15, 23, 42, 0.7);
     transform: translateX(8px);
-    box-shadow: 0 0 30px rgba(56, 189, 248, 0.1);
+    box-shadow: 0 10px 40px -10px rgba(79, 70, 229, 0.2);
+    border-color: rgba(79, 70, 229, 0.3);
+
+    .card-arrow {
+      transform: translateX(4px);
+      opacity: 1;
+    }
   }
 }
 
-@keyframes cardSlide {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+@keyframes cardReveal {
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .card-icon {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(129, 140, 248, 0.1));
-  border-radius: 10px;
-  color: var(--accent-primary);
+  border-radius: 12px;
+  color: white;
+  flex-shrink: 0;
 
   svg {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
   }
 }
 
-.card-content {
+.card-info {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -722,148 +841,201 @@ const checkInit = async () => {
 .card-title {
   font-size: 15px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: $text-primary;
 }
 
 .card-desc {
+  font-size: 13px;
+  color: $text-muted;
+}
+
+.card-arrow {
+  width: 20px;
+  height: 20px;
+  color: $primary;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.3s ease;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// 底部统计
+.brand-footer {
+  opacity: 0;
+  animation: fadeSlide 0.6s ease-out 1s forwards;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 24px;
+  background: $card-bg;
+  border: 1px solid $border-color;
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: $primary;
+}
+
+.stat-label {
   font-size: 12px;
-  color: var(--text-muted);
+  color: $text-muted;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 32px;
+  background: $border-color;
 }
 
 // 右侧登录区
 .login-area {
-  width: 520px;
+  width: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px;
-  background: rgba(10, 14, 23, 0.6);
+  padding: 40px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.8) 100%);
   backdrop-filter: blur(20px);
-  border-left: 1px solid var(--border-color);
 }
 
-// 登录面板
-.login-panel {
+// 登录卡片
+.login-card {
   position: relative;
   width: 100%;
-  max-width: 380px;
-  padding: 48px 40px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  backdrop-filter: blur(20px);
-  animation: panelFade 0.8s ease-out;
+  max-width: 400px;
+  padding: 40px;
+  background: white;
+  border-radius: 24px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+  animation: cardFloat 0.8s ease-out;
 }
 
-@keyframes panelFade {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes cardFloat {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-// 面板角落装饰
-.panel-corner {
+.card-glow {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  border-color: var(--accent-primary);
-  border-style: solid;
-  border-width: 0;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, $primary, $secondary, $accent);
+  border-radius: 26px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
 
-  &.tl {
-    top: -1px;
-    left: -1px;
-    border-top-width: 2px;
-    border-left-width: 2px;
-    border-radius: 20px 0 0 0;
-  }
-
-  &.tr {
-    top: -1px;
-    right: -1px;
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-radius: 0 20px 0 0;
-  }
-
-  &.bl {
-    bottom: -1px;
-    left: -1px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-    border-radius: 0 0 0 20px;
-  }
-
-  &.br {
-    bottom: -1px;
-    right: -1px;
-    border-bottom-width: 2px;
-    border-right-width: 2px;
-    border-radius: 0 0 20px 0;
-  }
+.login-card:hover .card-glow {
+  opacity: 0.1;
 }
 
 // 登录头部
 .login-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
+}
+
+.welcome-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(6, 182, 212, 0.1));
+  border-radius: 16px;
+  color: $primary;
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 .login-title {
   font-size: 28px;
   font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 8px 0;
-  letter-spacing: 4px;
+  color: $text-primary;
+  margin: 0 0 4px 0;
 }
 
 .login-subtitle {
-  font-family: 'Orbitron', monospace;
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 3px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: $text-muted;
+  letter-spacing: 2px;
   margin: 0;
 }
 
 // 表单样式
 .login-form {
   :deep(.el-form-item) {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   :deep(.el-form-item__error) {
     font-size: 12px;
-    color: #f87171;
+    color: #ef4444;
     padding-top: 4px;
   }
 }
 
 .form-item {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-secondary;
 }
 
 .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid var(--border-color);
+  background: #f8fafc;
+  border: 2px solid transparent;
   border-radius: 12px;
   transition: all 0.3s ease;
-  overflow: hidden;
 
   &:hover {
-    border-color: rgba(56, 189, 248, 0.3);
+    background: #f1f5f9;
   }
 
   &:focus-within {
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1), 0 0 20px rgba(56, 189, 248, 0.1);
+    background: white;
+    border-color: $primary;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
   }
 }
 
@@ -871,9 +1043,9 @@ const checkInit = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
-  color: var(--text-muted);
+  width: 48px;
+  height: 48px;
+  color: $text-muted;
   flex-shrink: 0;
 
   svg {
@@ -896,22 +1068,22 @@ const checkInit = async () => {
   }
 
   :deep(.el-input__inner) {
-    height: 50px;
+    height: 48px;
     font-size: 15px;
-    color: var(--text-primary);
+    color: $text-primary;
     font-family: inherit;
 
     &::placeholder {
-      color: var(--text-muted);
+      color: $text-muted;
     }
   }
 
   :deep(.el-input__suffix) {
-    color: var(--text-muted);
+    color: $text-muted;
   }
 }
 
-// 验证码行
+// 验证码
 .captcha-row {
   display: flex;
   gap: 12px;
@@ -921,21 +1093,21 @@ const checkInit = async () => {
   flex: 1;
 }
 
-.captcha-img {
+.captcha-box {
   width: 120px;
   height: 52px;
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid var(--border-color);
+  background: #f8fafc;
+  border: 2px solid transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: var(--accent-primary);
+    border-color: $primary;
   }
 
   img {
@@ -943,134 +1115,135 @@ const checkInit = async () => {
     height: 100%;
     object-fit: cover;
   }
-
-  .captcha-loading {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
 }
 
-// 提交按钮
+.captcha-loading {
+  color: $text-muted;
+}
+
+.loading-spin {
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// 登录按钮
 .submit-item {
-  margin-top: 32px;
+  margin-top: 28px;
   margin-bottom: 0;
 }
 
-.submit-btn {
+.login-btn {
   position: relative;
   width: 100%;
   height: 52px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  background: transparent;
   border: none;
   border-radius: 12px;
-  color: white;
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 4px;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.btn-content {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 40px rgba(56, 189, 248, 0.3);
-
-    .btn-icon {
-      transform: translateX(4px);
-    }
-
-    .btn-shine {
-      left: 100%;
-    }
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
+  height: 100%;
+  color: white;
 }
 
 .btn-text {
-  position: relative;
-  z-index: 1;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 
-.btn-icon {
-  position: relative;
-  z-index: 1;
+.btn-arrow {
   display: flex;
   transition: transform 0.3s ease;
 
   svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 }
 
-.btn-shine {
+.btn-bg {
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s ease;
+  inset: 0;
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+  transition: all 0.3s ease;
 }
 
-// 底部链接
-.login-footer {
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -5px rgba(79, 70, 229, 0.5);
+
+  .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  .btn-bg {
+    background: linear-gradient(135deg, $primary-light 0%, $primary 100%);
+  }
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+// 快捷操作
+.login-actions {
   display: flex;
   justify-content: center;
-  gap: 32px;
-  margin-top: 28px;
+  gap: 24px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid $border-color;
 }
 
-.footer-link {
+.action-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: none;
+  gap: 6px;
+  padding: 8px 12px;
+  background: transparent;
   border: none;
-  color: var(--text-muted);
+  border-radius: 8px;
+  color: $text-muted;
   font-family: inherit;
   font-size: 13px;
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 4px 0;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
 
   &:hover {
-    color: var(--accent-primary);
-
-    .link-dot {
-      background: var(--accent-primary);
-      box-shadow: 0 0 8px var(--glow-cyan);
-    }
+    color: $primary;
+    background: rgba(79, 70, 229, 0.05);
   }
-}
-
-.link-dot {
-  width: 4px;
-  height: 4px;
-  background: var(--text-muted);
-  border-radius: 50%;
-  transition: all 0.3s ease;
 }
 
 // 版权
 .copyright {
   text-align: center;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-color);
+  margin-top: 24px;
 
   span {
     font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 1px;
+    color: $text-muted;
   }
 }
 
@@ -1091,7 +1264,7 @@ const checkInit = async () => {
   }
 
   .logo-container {
-    margin: 0 auto 32px;
+    margin: 0 auto 24px;
   }
 
   .brand-name {
@@ -1099,29 +1272,30 @@ const checkInit = async () => {
     font-size: 36px;
   }
 
-  .slogan {
-    justify-content: center;
-    margin-bottom: 32px;
-  }
-
-  .feature-cards {
-    display: none;
-  }
-
-  .deco-line {
+  .divider {
     max-width: 200px;
     margin: 0 auto 24px;
+  }
+
+  .slogan {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .feature-cards,
+  .brand-footer {
+    display: none;
   }
 
   .login-area {
     width: 100%;
     flex: 1;
     padding: 24px;
-    border-left: none;
-    border-top: 1px solid var(--border-color);
   }
 
-  .login-panel {
+  .login-card {
     padding: 32px 24px;
   }
 }
@@ -1129,15 +1303,15 @@ const checkInit = async () => {
 @media (max-width: 480px) {
   .brand-name {
     font-size: 28px;
-    letter-spacing: 4px;
+    letter-spacing: 2px;
   }
 
   .brand-en {
     font-size: 11px;
   }
 
-  .slogan-word {
-    font-size: 13px;
+  .slogan-text {
+    font-size: 12px;
   }
 
   .login-title {
